@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;background:#fff;color:#000}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Vít Fikejzl Fotografie</title>
+<style>
+/* Layout: kontaktní arch – úzké záhlaví, galerie jako sloupcový „negativ“ s čísly políček pod každou fotkou */
+:root {
+  --bg: #ffffff;
+  --surface: #f6f7f6;
+  --fg: #1c2320;
+  --muted: #5d6762;
+  --line: #e1e4e2;
+  color-scheme: light;
+  --accent: #b8862a;
+  --accent-ink: #1c2320;
+  --display: "Helvetica Neue", Helvetica, Arial, "Liberation Sans", sans-serif;
+  --body: "Helvetica Neue", Helvetica, Arial, "Liberation Sans", sans-serif;
+  --mono: "Helvetica Neue", Helvetica, Arial, "Liberation Sans", sans-serif;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: var(--body); font-size: 1.0625rem; line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 1180px; margin: 0 auto; }
+h1, h2, h3 { font-family: var(--display); font-weight: 700; line-height: 1; margin: 0; text-wrap: balance; letter-spacing: -.01em; }
+.label { font-family: var(--mono); font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* záhlaví */
+.top {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px;
+  padding-block: 20px; border-bottom: 1px solid var(--line);
+}
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--bg); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 21; background: var(--bg); }
+section { scroll-margin-top: calc(96px + env(safe-area-inset-top, 0px)); }
+.brand { display: block; line-height: 0; }
+.brand svg { display: block; width: 68px; height: 68px; }
+.top nav { display: flex; gap: 32px; flex-wrap: wrap; }
+.top nav a { font-family: var(--mono); font-size: 1.05rem; font-weight: 500; text-transform: uppercase; letter-spacing: .08em; text-decoration: none; color: var(--muted); }
+.top nav a:hover { color: var(--fg); }
+
+/* hero */
+.hero { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 64px; align-items: end; padding-block: 28px; }
+.hero h1 { font-size: clamp(2.8rem, 7vw, 6rem); font-weight: 700; letter-spacing: -.03em; line-height: 1.02; }
+.blok .l1, .blok .sub { display: block; width: max-content; white-space: nowrap; }
+.blok .sub { font-size: .5em; color: var(--fg); margin-top: .1em; }
+.hero h1 .sub span { color: var(--accent); }
+.hero p { max-width: 36ch; margin: 22px 0 0; color: var(--muted); font-size: 1.15rem; }
+.hero figure { margin: 0; }
+.hero figure { justify-self: start; }
+.hero figure img { display: block; width: auto; height: auto; max-width: 100%; max-height: calc(100vh - 170px); max-height: calc(100svh - 170px); min-height: 0; }
+@media (max-height: 520px) { .hero figure img { max-height: 340px; } }
+.hero figcaption { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-top: 10px; }
+
+/* galerie */
+section { padding-block: 56px; border-top: 1px solid var(--line); }
+.sec-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 28px; }
+.sec-head h2 { font-size: clamp(2.2rem, 5vw, 3.4rem); text-transform: uppercase; }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.filters button {
+  font-family: var(--mono); font-size: .78rem; letter-spacing: .06em; text-transform: uppercase;
+  background: transparent; color: var(--fg); border: 1px solid var(--line); border-radius: 999px;
+  padding: 7px 14px; cursor: pointer;
+}
+.filters button:hover { border-color: var(--fg); }
+.filters button[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.subfilters { margin: -12px 0 24px; }
+.subfilters button { font-size: .72rem; padding: 5px 12px; }
+
+.grid { columns: 3 300px; column-gap: 20px; }
+.shot { break-inside: avoid; margin: 0 0 26px; }
+.shot button { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; }
+.shot img { display: block; width: 100%; height: auto; max-width: 100%; transition: filter .25s; }
+.shot button:hover img { filter: brightness(1.06); }
+.shot figcaption { margin-top: 10px; }
+.shot h3 { font-family: var(--body); font-weight: 600; font-size: 1rem; line-height: 1.3; }
+
+/* o mně */
+.about { display: grid; grid-template-columns: minmax(0, 150px) minmax(0, 1fr); gap: 48px; align-items: start; }
+.about p { max-width: 62ch; margin: 0 0 1em; }
+.about-side { display: grid; gap: 28px; }
+.contact-box .mail { margin-top: 10px; }
+.portrait { margin: 0; max-width: 150px; }
+.portrait img { display: block; width: 100%; height: auto; }
+
+/* kontakt */
+.contact { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; }
+.mail { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+.mail code { font-family: var(--mono); font-size: 1rem; user-select: all; }
+.btn {
+  font-family: var(--mono); font-size: .8rem; letter-spacing: .06em; text-transform: uppercase;
+  background: var(--accent); color: var(--accent-ink); border: 0; border-radius: 3px; padding: 11px 18px; cursor: pointer; font-weight: 500;
+}
+.btn.ghost { background: transparent; color: var(--fg); border: 1px solid var(--line); padding: 6px 12px; }
+.note { font-size: .9rem; color: var(--muted); min-height: 1.4em; margin: 0; }
+
+footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding-block: 28px 40px; border-top: 1px solid var(--line); }
+
+/* lightbox */
+dialog {
+  border: 0; padding: 0; background: transparent; max-width: min(1100px, 94vw); width: 100%; color: #e6e9e5;
+}
+dialog::backdrop { background: rgba(10, 13, 12, .92); }
+dialog img { display: block; width: 100%; height: auto; max-height: 82vh; object-fit: contain; }
+.lb-bar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; padding-top: 12px; }
+.lb-bar h3 { font-family: var(--body); font-size: 1.1rem; font-weight: 600; }
+.lb-nav { display: flex; gap: 8px; }
+.lb-nav button { font-family: var(--mono); background: transparent; color: #e6e9e5; border: 1px solid #4a5450; border-radius: 3px; padding: 6px 12px; cursor: pointer; }
+.lb-nav button:hover { border-color: #e6e9e5; }
+
+@media (max-width: 760px) {
+  .hero, .about, .contact { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .hero { padding-block: 32px; }
+  .portrait { max-width: 120px; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="#" aria-label="Vít Fikejzl, na začátek stránky"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="48" height="48" aria-hidden="true"><polygon points="11.5,42 11.5,11.5 42,11.5 42,16.5 16.5,16.5 16.5,42" fill="#1D1F22"/><polygon points="188.5,42 188.5,11.5 158,11.5 158,16.5 183.5,16.5 183.5,42" fill="#1D1F22"/><polygon points="11.5,158 11.5,188.5 42,188.5 42,183.5 16.5,183.5 16.5,158" fill="#1D1F22"/><polygon points="188.5,158 188.5,188.5 158,188.5 158,183.5 183.5,183.5 183.5,158" fill="#1D1F22"/><polygon points="33.93,50 50.11,50 93,123.97 93,50 107,50 107,157 95.96,157" fill="#1D1F22"/><polygon points="93,50 160.1,50 152,64 93,64" fill="#1D1F22"/><polygon points="93,93 138.1,93 130,107 93,107" fill="#1D1F22"/><circle cx="150" cy="150" r="7" fill="#D9402B"/></svg></a>
+    <nav aria-label="Hlavní">
+      <a href="#galerie">Galerie</a>
+      <a href="#o-mne">O mně</a>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <div>
+      <h1 class="blok"><span class="l1">Vít Fikejzl</span> <span class="sub">starý <span>nadějný</span> fotograf</span></h1>
+    </div>
+    <figure>
+      <img src="foto/karluv-most-rano.jpg" width="1067" height="1600" alt="Sluneční metař: uklízeč na Karlově mostě před Staroměstskou mosteckou věží">
+    </figure>
+  </div>
+
+  <section id="galerie" aria-labelledby="gal-h">
+    <div class="sec-head">
+      <div>
+        <h2 id="gal-h">Galerie</h2>
+      </div>
+      <div class="filters" id="mainFilters" role="group" aria-label="Filtrovat podle tématu">
+        <button type="button" data-f="krajina" aria-pressed="false">Krajina</button>
+        <button type="button" data-f="hory" aria-pressed="false">Hory</button>
+        <button type="button" data-f="mesta" aria-pressed="false">Města</button>
+        <button type="button" data-f="priroda" aria-pressed="false">Příroda</button>
+        <button type="button" data-f="doprava" aria-pressed="false">Doprava</button>
+        <button type="button" data-f="lide" aria-pressed="false">Lidé</button>
+        <button type="button" data-f="kostely" aria-pressed="false">Kostely</button>
+        <button type="button" data-f="zeny" aria-pressed="false">Ženy</button>
+        <button type="button" data-f="nezarazeno" aria-pressed="false">Nezařazeno</button>
+      </div>
+    </div>
+    <div class="filters subfilters" id="subMesta" role="group" aria-label="Města" hidden>
+      <button type="button" data-sf="praha" aria-pressed="false">Praha</button>
+      <button type="button" data-sf="barcelona" aria-pressed="false">Barcelona</button>
+      <button type="button" data-sf="ostatni" aria-pressed="false">Ostatní</button>
+    </div>
+    <div class="grid" id="grid"></div>
+    <p class="note" id="hint">Vyberte kategorii a zobrazí se fotky.</p>
+    <p class="note" id="empty" hidden>V této kategorii zatím nejsou žádné fotky.</p>
+  </section>
+
+  <section id="o-mne" aria-labelledby="about-h">
+    <div class="about">
+      <div class="about-side">
+        <figure class="portrait">
+          <img src="vit-fikejzl.jpg" width="373" height="562" alt="Vít Fikejzl">
+          <figcaption style="margin-top:8px;font-size:.9rem;color:var(--muted)">*&nbsp;1962<br>Jindřichův Hradec</figcaption>
+        </figure>
+        <div id="kontakt" class="contact-box">
+          <p class="label">Kontakt</p>
+          <div class="mail">
+            <code id="mailAddr">fikejzl@seznam.cz</code>
+          </div>
+          <div class="mail" style="margin-top:4px">
+            <a href="https://www.instagram.com/vitfikejzl/" target="_blank" rel="noopener" style="font-family:var(--mono);font-size:1rem">@vitfikejzl</a>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p class="label">O mně</p>
+        <h2 id="about-h" class="blok" style="font-size:clamp(2.2rem,5vw,3.4rem);margin-bottom:20px"><span class="l1">Vít Fikejzl</span> <span class="sub">starý <span style="color:var(--accent)">nadějný</span> fotograf</span></h2>
+        <p>Latinský původ mého jména vitus značí živoucí, radostný, veselý, což předznamenává, že fotím zejména pro radost. Už mi bylo šedesát, proto jsem se nazval starým nadějným fotografem.</p>
+        <p>Svět je barevný, a proto ho fotím barevně. Černá a bílá jsou také barvy, proto fotím i černobíle. Občas zkusím něco mezi.</p>
+        <p>Nerad sedím na mezi, raději jsem v horách. Jsem však schopen vyfotit i krajinu placatou.</p>
+        <p>Cestu do práce a z práce si zpříjemňuji focením Prahy. Zaměstnavatel mi to svým sídlem v centru ulehčuje. Mohu měnit trasy podle libosti hvězdicovitým způsobem.</p>
+        <p>Jednou jsem vyhrál kategorii Ostatní ve hvězdářské soutěži, ač na fotce žádné hvězdy nebyly. Z focení Prahy jsem si odnesl pár diplomů, mám je v šuplíku.</p>
+        <p>Mimo Prahu jezdím rád na kole. Ti za mnou si dávají větší odstup, protože vědí, že mohu kdykoliv prudce zabrzdit a začít fotit.</p>
+        <p>Krajinu občas doplním nějakou slečnou, které bývá v létě vedro, a tak mi nezbývá než ji vyfotit, jak je.</p>
+        <p>Ve své tvorbě střídám minimalistický a maximalistický přístup. Přijde mi líto, že můj foťák má milióny pixelů, a tak se minimálně několikrát ročně vynasnažím, aby maximální množství pixelů mohlo zazářit různými barvami.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span class="label">© 2026 Vít Fikejzl</span>
+  </footer>
+</div>
+
+<dialog id="lb" aria-label="Náhled snímku">
+  <img id="lbImg" src="" alt="">
+  <div class="lb-bar">
+    <div><h3 id="lbTitle"></h3></div>
+    <div class="lb-nav">
+      <button type="button" id="lbPrev" aria-label="Předchozí">←</button>
+      <button type="button" id="lbNext" aria-label="Další">→</button>
+      <button type="button" id="lbClose">Zavřít</button>
+    </div>
+  </div>
+</dialog>
+
+<script>
+// oba řádky jména stejně široké (do bloku)
+function fitBlok() {
+  document.querySelectorAll(".blok").forEach(h => {
+    const a = h.querySelector(".l1"), b = h.querySelector(".sub");
+    b.style.fontSize = "";
+    for (let k = 0; k < 3; k++) {
+      const fs = parseFloat(getComputedStyle(b).fontSize);
+      const wa = a.getBoundingClientRect().width, wb = b.getBoundingClientRect().width;
+      if (wa && wb) b.style.fontSize = (fs * wa / wb) + "px";
+    }
+  });
+}
+fitBlok();
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitBlok);
+addEventListener("resize", fitBlok);
+addEventListener("load", fitBlok);
+const PHOTOS = [
+  { t: "Sluneční metař", c: "mesta praha", src: "foto/karluv-most-rano.jpg", w: 1067, h: 1600 },
+  { t: "Letíme do mlhy", c: "mesta praha", src: "foto/racci-v-mlze.jpg", w: 1200, h: 900 },
+  { t: "Náplavka", c: "mesta praha", src: "foto/naplavka-cyklista.jpg", w: 768, h: 1024 },
+  { t: "Obilí", c: "priroda", src: "foto/jecmenne-pole.jpg", w: 1200, h: 1600 },
+  { t: "Z železničního hřbitova", c: "doprava", src: "foto/vagon-leo-express.jpg", w: 1200, h: 900 },
+  { t: "Skleničky", c: "", src: "foto/sklenice.jpg", w: 1600, h: 1200 },
+  { t: "Badalona", c: "krajina mesta barcelona", src: "foto/badalona.jpg", w: 1600, h: 1067 },
+  { t: "Dívka z Boquerie", c: "zeny mesta barcelona", src: "foto/boqueria.jpg", w: 1600, h: 1067 },
+  { t: "Maják v Sučuraji", c: "krajina", src: "foto/majak-sucuraj.jpg", w: 1600, h: 1063 },
+  { t: "Barcelona, Santa Maria del Mar", c: "kostely mesta barcelona", src: "foto/santa-maria-del-mar.jpg", w: 1600, h: 1067 },
+  { t: "Hamburg, Elphi", c: "mesta", src: "foto/elbphilharmonie.jpg", w: 2000, h: 1333 },
+  { t: "Hamburg, Elphi II", c: "mesta", src: "foto/hamburg-elphi-2.jpg", w: 2000, h: 1333 },
+  { t: "Hamburg, Speicherstadt", c: "mesta", src: "foto/speicherstadt.jpg", w: 2000, h: 1333 },
+  { t: "Benátky, z kampanily svatého Marka", c: "mesta", src: "foto/vyhled-z-kampanily.jpg", w: 2000, h: 1333 },
+  { t: "Benátky", c: "mesta", src: "foto/benatky.jpg", w: 2000, h: 1334 },
+  { t: "Svitavy", c: "mesta", src: "foto/kasna-na-namesti.jpg", w: 2000, h: 1333 },
+  { t: "Jindřichův Hradec, zámek", c: "mesta", src: "foto/jindrichuv-hradec.jpg", w: 2000, h: 1334 },
+  { t: "Ze Štvanice", c: "mesta praha", src: "foto/ze-stvanice.jpg", w: 1600, h: 1067 },
+  { t: "Tulipán", c: "", src: "foto/tulipan.jpg", w: 1600, h: 1200 },
+  { t: "Tulipán II", c: "priroda", src: "foto/tulipan-2.jpg", w: 1600, h: 1200 },
+  { t: "Křivky", c: "", src: "foto/krivky.jpg", w: 2000, h: 1333 },
+  { t: "Slamák", c: "", src: "foto/klobouk-na-vetvi.jpg", w: 2000, h: 1333 },
+  { t: "Samnaun", c: "hory", src: "foto/samnaun.jpg", w: 2000, h: 1333 },
+  { t: "Nad Strážným", c: "hory", src: "foto/nad-straznym.jpg", w: 1600, h: 1067 },
+  { t: "Cestou na Chleb", c: "hory", src: "foto/cestou-na-chleb.jpg", w: 1000, h: 667 },
+  { t: "Z Chlebu", c: "hory", src: "foto/z-chlebu.jpg", w: 1000, h: 667 },
+  { t: "Dívka s bublifukem", c: "zeny", src: "foto/divka-s-bublifukem.jpg", w: 1600, h: 900 },
+  { t: "Pohled z Watles", c: "hory", src: "foto/pohled-z-watles.jpg", w: 2000, h: 1333 },
+  { t: "433.001", c: "doprava", src: "foto/433-001.jpg", w: 1600, h: 1067 },
+  { t: "Praha - hlavní nádraží", c: "doprava", src: "foto/praha-hlavni-nadrazi-koleje.jpg", w: 2000, h: 1333 },
+  { t: "Čáp", c: "doprava", src: "foto/cap.jpg", w: 2000, h: 1333 },
+  { t: "Vůz vlakové pošty", c: "doprava", src: "foto/vuz-vlakove-posty.jpg", w: 2000, h: 1333 },
+  { t: "V Motolském ordoviku", c: "doprava", src: "foto/motorak-v-zarezu.jpg", w: 2000, h: 1333 },
+  { t: "Aeri del Port", c: "doprava mesta barcelona", src: "foto/aeri-del-port.jpg", w: 1600, h: 1067 },
+  { t: "Casa Amatller", c: "mesta barcelona", src: "foto/barcelona-secesni-interier.jpg", w: 2000, h: 1333 },
+  { t: "Casa Batlló I", c: "mesta barcelona", src: "foto/casa-batllo-okno.jpg", w: 1600, h: 1200 },
+  { t: "Casa Batlló", c: "mesta barcelona", src: "foto/casa-batllo-strecha.jpg", w: 1600, h: 1067 },
+  { t: "La Pedrera, na střeše", c: "mesta barcelona", src: "foto/la-pedrera-strecha.jpg", w: 1600, h: 1067 },
+  { t: "La Pedrera, nádvoří", c: "mesta barcelona", src: "foto/la-pedrera-nadvori.jpg", w: 1600, h: 1067 },
+  { t: "Z Tibidaba", c: "mesta barcelona", src: "foto/z-tibidaba.jpg", w: 2000, h: 1333 },
+  { t: "Masopust v Hlubočepích I", c: "lide", src: "foto/masopust-v-hlubocepich.jpg", w: 2000, h: 1334 },
+  { t: "Masopust v Hlubočepích II", c: "lide", src: "foto/hlubocepsky-masopust-2.jpg", w: 1600, h: 1067 },
+  { t: "Masopust v Hlubočepích III", c: "lide", src: "foto/hlubocepsky-masopust-3.jpg", w: 1600, h: 1067 },
+  { t: "Masopust v Hlubočepích IV", c: "lide", src: "foto/hlubocepsky-masopust-4.jpg", w: 2000, h: 1333 },
+  { t: "Masopust v Roztokách", c: "lide", src: "foto/masopust-v-roztokach.jpg", w: 2000, h: 1334 },
+  { t: "Ondřej Neff", c: "lide", src: "foto/ondrej-neff.jpg", w: 2000, h: 1334 },
+  { t: "Stěhování pošty Praha 120 I", c: "lide", src: "foto/stehovani-posty-1.jpg", w: 2000, h: 1333 },
+  { t: "Stěhování pošty Praha 120 II", c: "lide", src: "foto/stehovani-posty-2.jpg", w: 2000, h: 1333 },
+  { t: "Zbrojnoš", c: "lide", src: "foto/zbrojnos.jpg", w: 1334, h: 2000 },
+  { t: "Z Vodičkovy ulice", c: "mesta praha", src: "foto/z-vodickovy-ulice.jpg", w: 2000, h: 1334 },
+  { t: "Miminka", c: "mesta praha", src: "foto/praha-miminka.jpg", w: 2000, h: 1333 },
+  { t: "Kafkova hlava", c: "mesta praha", src: "foto/praha-kafkova-hlava.jpg", w: 2000, h: 1333 },
+  { t: "Lennonova zeď", c: "mesta praha", src: "foto/praha-lennonova-zed.jpg", w: 2000, h: 1261 },
+  { t: "Na procházce", c: "mesta praha", src: "foto/praha-prochazka.jpg", w: 1600, h: 1067 },
+  { t: "Ze severní věže hlavního nádraží", c: "mesta praha", src: "foto/praha-kulata-okna.jpg", w: 2000, h: 1333 },
+  { t: "Petrské náměstí", c: "mesta praha", src: "foto/praha-lucerna-a-hodiny.jpg", w: 2000, h: 1333 },
+  { t: "Masaryčka", c: "mesta praha doprava", src: "foto/praha-hlavni-nadrazi.jpg", w: 2000, h: 1333 },
+  { t: "Mateřská škola Kostelní", c: "mesta praha", src: "foto/praha-zvlnena-stavba.jpg", w: 2000, h: 1500 },
+  { t: "Z Velké strahovské zahrady", c: "mesta praha", src: "foto/praha-vychod-slunce.jpg", w: 1600, h: 1067 },
+  { t: "Stínadla", c: "mesta praha", src: "foto/praha-zed-s-graffiti.jpg", w: 1600, h: 1067 },
+  { t: "Františkánská zahrada", c: "mesta praha", src: "foto/praha-vzletajici-holub.jpg", w: 2000, h: 1336 },
+  { t: "Dohráno", c: "lide", src: "foto/dohrano.jpg", w: 2000, h: 1334 },
+  { t: "Brambůrky", c: "lide", src: "foto/bramburky.jpg", w: 1600, h: 1067 },
+  { t: "Z mníšecké poutě I", c: "", src: "foto/mnisecka-pout.jpg", w: 2000, h: 1333 },
+  { t: "Z mníšecké poutě II", c: "", src: "foto/mnisecka-pout-2.jpg", w: 2000, h: 1334 },
+  { t: "Z Velké kunratické", c: "zeny", src: "foto/z-velke-kunraticke.jpg", w: 1067, h: 1600 },
+  { t: "Kristýna", c: "zeny", src: "foto/kristyna.jpg", w: 2000, h: 1334 },
+  { t: "Sukně", c: "zeny", src: "foto/sukne.jpg", w: 1600, h: 1600 },
+  { t: "Eva", c: "zeny", src: "foto/eva.jpg", w: 1334, h: 2000 },
+  { t: "Lucie", c: "zeny", src: "foto/lucie.jpg", w: 1600, h: 1200 },
+  { t: "Hra", c: "zeny", src: "foto/hra.jpg", w: 2000, h: 1500 },
+  { t: "Maja", c: "zeny", src: "foto/maja.jpg", w: 2000, h: 1333 },
+  { t: "Na Dalejském potoce", c: "zeny", src: "foto/na-dalejskem-potoce.jpg", w: 2000, h: 1333 },
+  { t: "Z Černého lomu", c: "zeny", src: "foto/z-cerneho-lomu.jpg", w: 2000, h: 1500 },
+  { t: "Lucy L", c: "zeny", src: "foto/lucy-l.jpg", w: 1200, h: 900 },
+  { t: "Od Kežmaroku", c: "hory", src: "foto/od-kezmaroku.jpg", w: 2000, h: 1333 },
+  { t: "Tcheyeck", c: "hory", src: "foto/tcheyeck.jpg", w: 2000, h: 1333 },
+  { t: "Sasslong", c: "hory", src: "foto/sasslong.jpg", w: 2000, h: 1333 },
+  { t: "Start", c: "hory", src: "foto/start.jpg", w: 2000, h: 1333 },
+  { t: "Marmolada", c: "hory", src: "foto/marmolada.jpg", w: 2000, h: 1231 },
+  { t: "Seceda", c: "hory", src: "foto/seceda.jpg", w: 2000, h: 1333 },
+  { t: "Kamenožrout", c: "hory", src: "foto/kamenozrout.jpg", w: 2000, h: 1333 },
+  { t: "Panský hříbek", c: "priroda", src: "foto/hrib-v-mechu.jpg", w: 2000, h: 1333 },
+  { t: "Hřib v trávě", c: "priroda", src: "foto/hrib-v-trave.jpg", w: 2000, h: 1333 },
+  { t: "Okolo Třeboně", c: "priroda", src: "foto/lavicka-v-parku.jpg", w: 2000, h: 1333 },
+  { t: "Castelldefels", c: "krajina", src: "foto/vlny-a-mraky.jpg", w: 2000, h: 1333 },
+  { t: "Blatná, zámek", c: "mesta", src: "foto/zamek-nad-rybnikem.jpg", w: 2000, h: 1333 },
+  { t: "Šumava, Roklanský potok", c: "hory", src: "foto/cesta-podel-reky.jpg", w: 2000, h: 1333 },
+  { t: "Zelená řeka", c: "priroda", src: "foto/zelena-reka.jpg", w: 2000, h: 1333 },
+  { t: "U Řeporyjí", c: "krajina mesta praha", src: "foto/zapad-slunce-v-borovicich.jpg", w: 2000, h: 1333 },
+  { t: "Hlubočepské jezírko", c: "krajina", src: "foto/zatopeny-lom.jpg", w: 2000, h: 1333 },
+  { t: "Jaro u rybníka", c: "priroda", src: "foto/jaro-u-rybnika.jpg", w: 1600, h: 1067 },
+  { t: "Nad Koněprusy", c: "priroda", src: "foto/hadinec-v-trave.jpg", w: 2000, h: 1333 },
+  { t: "U Zálší", c: "priroda", src: "foto/lesni-cesta.jpg", w: 2000, h: 1333 },
+  { t: "Ze zahrady Břevnovského kláštera", c: "mesta praha", src: "foto/dva-buky.jpg", w: 2000, h: 1333 },
+  { t: "U Svaté Anny", c: "krajina", src: "foto/jinovatka-a-mlha.jpg", w: 2000, h: 1333 },
+  { t: "Nad Sezimovým Ústím", c: "priroda", src: "foto/dub-s-jinovatkou.jpg", w: 2000, h: 1333 },
+  { t: "Koniklec", c: "priroda", src: "foto/koniklec.jpg", w: 2000, h: 1333 },
+  { t: "Modřenec", c: "priroda", src: "foto/modrinec.jpg", w: 1600, h: 1067 },
+  { t: "Jabloňový květ", c: "priroda", src: "foto/jablonovy-kvet.jpg", w: 2000, h: 1333 },
+  { t: "Chorvatsko, Cavtat", c: "krajina", src: "foto/zapad-slunce-nad-morem.jpg", w: 2000, h: 1333 },
+  { t: "Soukeník", c: "krajina", src: "foto/soukenik.jpg", w: 2000, h: 1334 },
+  { t: "Pláž v Malii", c: "krajina", src: "foto/plaz-v-malii.jpg", w: 2000, h: 1500 },
+  { t: "Prvić", c: "krajina", src: "foto/prvic.jpg", w: 2000, h: 1333 },
+  { t: "San Francesco", c: "krajina", src: "foto/san-francesco.jpg", w: 1600, h: 1200 },
+  { t: "Pelješac", c: "krajina", src: "foto/peljesac.jpg", w: 2000, h: 1333 },
+  { t: "Nad Černovicemi", c: "krajina", src: "foto/nad-cernovicemi.jpg", w: 2000, h: 1333 },
+  { t: "Vrchní Orlice", c: "kostely", src: "foto/kostel-nad-mlhou.jpg", w: 2000, h: 1333 },
+  { t: "Krteň", c: "kostely", src: "foto/vez-za-jinovatkou.jpg", w: 1333, h: 2000 },
+  { t: "Břevnovský klášter, Vojtěška", c: "kostely", src: "foto/zimni-podvecer.jpg", w: 2000, h: 1333 },
+  { t: "Pohled z Mont Vallon", c: "hory", src: "foto/hory-01.jpg", w: 2000, h: 1333 },
+  { t: "Pohled z Cime de Caron", c: "hory", src: "foto/hory-02.jpg", w: 2000, h: 1333 },
+  { t: "Torri del Sella", c: "hory", src: "foto/hory-03.jpg", w: 2000, h: 1333 },
+  { t: "Gruppo Sella", c: "hory", src: "foto/hory-07.jpg", w: 2000, h: 1333 },
+  { t: "Pohled do čtvrtého údolí", c: "hory", src: "foto/hory-08.jpg", w: 2000, h: 1333 },
+  { t: "Aiguilles d'Arves", c: "hory", src: "foto/hory-13.jpg", w: 1067, h: 1600 },
+  { t: "Piz Ciavazes", c: "hory", src: "foto/hory-14.jpg", w: 1067, h: 1600 },
+];
+
+// galerie
+const grid = document.getElementById("grid");
+PHOTOS.forEach((p, i) => {
+  const fig = document.createElement("figure");
+  fig.className = "shot"; fig.dataset.c = p.c || "";
+  const btn = document.createElement("button");
+  btn.type = "button"; btn.setAttribute("aria-label", "Zvětšit snímek: " + p.t);
+  const img = document.createElement("img");
+  img.src = p.src; img.alt = p.t; img.width = p.w; img.height = p.h; img.loading = "lazy"; img.decoding = "async";
+  btn.appendChild(img); fig.appendChild(btn);
+  fig.insertAdjacentHTML("beforeend", `<figcaption><h3>${p.t}</h3></figcaption>`);
+  btn.addEventListener("click", () => openLb(i));
+  fig.hidden = true;
+  grid.appendChild(fig);
+});
+
+// filtr
+const fBtns = document.querySelectorAll("#mainFilters button");
+const sBtns = document.querySelectorAll("#subMesta button");
+const subMesta = document.getElementById("subMesta");
+let curF = null, curSub = null;
+function cats(s) { return (s.dataset.c || "").split(/[\s,]+/).filter(Boolean); }
+function match(c, f, sub) {
+  if (!f) return false;
+  if (f === "nezarazeno") return c.length === 0;
+  if (!c.includes(f)) return false;
+  if (f === "mesta" && !sub) return false;
+  if (f === "mesta" && sub) return sub === "ostatni" ? !c.includes("praha") && !c.includes("barcelona") : c.includes(sub);
+  return true;
+}
+function applyFilter() {
+  let n = 0;
+  document.querySelectorAll(".shot").forEach(s => { s.hidden = !match(cats(s), curF, curSub); if (!s.hidden) n++; });
+  const needSub = curF === "mesta" && !curSub;
+  document.getElementById("empty").hidden = !curF || needSub || n > 0;
+  const hint = document.getElementById("hint");
+  hint.hidden = !!curF && !needSub;
+  hint.textContent = needSub ? "Vyberte Prahu, Barcelonu nebo Ostatní a zobrazí se fotky." : "Vyberte kategorii a zobrazí se fotky.";
+  subMesta.hidden = curF !== "mesta";
+  sBtns.forEach(x => x.setAttribute("aria-pressed", x.dataset.sf === curSub));
+  // když jsou zobrazené fotky, sekce O mně se pod nimi neukazuje
+  document.getElementById("o-mne").hidden = n > 0 || window.jenGalerie === true;
+}
+// druhé klepnutí na aktivní kategorii fotky zase skryje
+fBtns.forEach(b => b.addEventListener("click", () => {
+  const on = b.getAttribute("aria-pressed") !== "true";
+  fBtns.forEach(x => x.setAttribute("aria-pressed", on && x === b));
+  curF = on ? b.dataset.f : null; curSub = null;
+  applyFilter();
+}));
+// podkategorie měst; druhé klepnutí ukáže všechna města
+sBtns.forEach(b => b.addEventListener("click", () => {
+  curSub = curSub === b.dataset.sf ? null : b.dataset.sf;
+  applyFilter();
+}));
+
+// lightbox
+const lb = document.getElementById("lb"), lbImg = document.getElementById("lbImg");
+let cur = 0;
+function visibleIdx() { return [...document.querySelectorAll(".shot")].map((s, i) => s.hidden ? -1 : i).filter(i => i >= 0); }
+function showLb(i) {
+  cur = i; const p = PHOTOS[i];
+  lbImg.src = p.src; lbImg.alt = p.t;
+  document.getElementById("lbTitle").textContent = p.t;
+}
+function openLb(i) { showLb(i); if (typeof lb.showModal === "function") lb.showModal(); else lb.setAttribute("open", ""); }
+function step(d) { const v = visibleIdx(); const k = v.indexOf(cur); showLb(v[(k + d + v.length) % v.length]); }
+document.getElementById("lbPrev").onclick = () => step(-1);
+document.getElementById("lbNext").onclick = () => step(1);
+document.getElementById("lbClose").onclick = () => lb.close();
+lb.addEventListener("click", e => { if (e.target === lb) lb.close(); });
+document.addEventListener("keydown", e => { if (!lb.open) return; if (e.key === "ArrowRight") step(1); if (e.key === "ArrowLeft") step(-1); });
+
+// kopírování e-mailu
+// menu: Galerie skryje sekci O mně, O mně skryje galerii
+const omne = document.getElementById("o-mne"), gal = document.getElementById("galerie");
+document.querySelector('.top nav a[href="#galerie"]').addEventListener("click", () => { window.jenGalerie = true; omne.hidden = true; gal.hidden = false; });
+document.querySelector('.top nav a[href="#o-mne"]').addEventListener("click", () => { window.jenGalerie = false; gal.hidden = true; omne.hidden = false; });
+</script>
+
+</body>
+</html>
