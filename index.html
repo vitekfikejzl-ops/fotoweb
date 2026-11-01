@@ -15,6 +15,7 @@
   --line: #e1e4e2;
   color-scheme: light;
   --accent: #b8862a;
+  --sun: #c7883c; /* tón sluncí zalité dlažby z titulní fotky */
   --accent-ink: #1c2320;
   --display: "Helvetica Neue", Helvetica, Arial, "Liberation Sans", sans-serif;
   --body: "Helvetica Neue", Helvetica, Arial, "Liberation Sans", sans-serif;
@@ -44,21 +45,23 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 section { scroll-margin-top: calc(96px + env(safe-area-inset-top, 0px)); }
 .brand { display: block; line-height: 0; }
 .brand svg { display: block; width: 68px; height: 68px; }
-.top nav { display: flex; gap: 32px; flex-wrap: wrap; }
+.top nav { display: flex; gap: 32px; flex-wrap: wrap; align-items: center; }
 .top nav a { font-family: var(--mono); font-size: 1.05rem; font-weight: 500; text-transform: uppercase; letter-spacing: .08em; text-decoration: none; color: var(--muted); }
 .top nav a:hover { color: var(--fg); }
+.lang { font-family: var(--mono); font-size: .85rem; font-weight: 500; letter-spacing: .08em; color: var(--muted); background: transparent; border: 1px solid var(--line); border-radius: 999px; padding: 4px 10px; cursor: pointer; }
+.lang:hover { color: var(--fg); border-color: var(--fg); }
 
 /* hero */
 .hero { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 64px; align-items: end; padding-block: 28px; }
 .hero h1 { font-size: clamp(2.8rem, 7vw, 6rem); font-weight: 700; letter-spacing: -.03em; line-height: 1.02; }
 .blok .l1, .blok .sub { display: block; width: max-content; white-space: nowrap; }
 .blok .sub { font-size: .5em; color: var(--fg); margin-top: .1em; }
-.hero h1 .sub span { color: var(--accent); }
+.hero h1 .sub span { color: var(--sun); }
 .hero p { max-width: 36ch; margin: 22px 0 0; color: var(--muted); font-size: 1.15rem; }
 .hero figure { margin: 0; }
 .hero figure { justify-self: start; }
-.hero figure img { display: block; width: auto; height: auto; max-width: 100%; max-height: calc(100vh - 170px); max-height: calc(100svh - 170px); min-height: 0; }
-@media (max-height: 520px) { .hero figure img { max-height: 340px; } }
+.hero figure img, .hero figure video { display: block; width: auto; height: auto; max-width: 100%; max-height: calc(100vh - 170px); max-height: calc(100svh - 170px); min-height: 0; }
+@media (max-height: 520px) { .hero figure img, .hero figure video { max-height: 340px; } }
 .hero figcaption { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-top: 10px; }
 
 /* galerie */
@@ -77,12 +80,15 @@ section { padding-block: 56px; border-top: 1px solid var(--line); }
 .subfilters button { font-size: .72rem; padding: 5px 12px; }
 
 .grid { columns: 3 300px; column-gap: 20px; }
+.grid.two { columns: auto; display: grid; grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr)); grid-auto-rows: 2px; gap: 0 20px; align-items: start; }
+.grid.two .shot { margin: 0; }
+
 .shot { break-inside: avoid; margin: 0 0 26px; }
 .shot button { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; }
 .shot img { display: block; width: 100%; height: auto; max-width: 100%; transition: filter .25s; }
 .shot button:hover img { filter: brightness(1.06); }
 .shot figcaption { margin-top: 10px; }
-.shot h3 { font-family: var(--body); font-weight: 600; font-size: 1rem; line-height: 1.3; }
+.shot h3 { font-family: var(--body); font-weight: 400; font-size: 1rem; line-height: 1.3; }
 
 /* o mně */
 .about { display: grid; grid-template-columns: minmax(0, 150px) minmax(0, 1fr); gap: 48px; align-items: start; }
@@ -90,7 +96,7 @@ section { padding-block: 56px; border-top: 1px solid var(--line); }
 .about-side { display: grid; gap: 28px; }
 .contact-box .mail { margin-top: 10px; }
 .portrait { margin: 0; max-width: 150px; }
-.portrait img { display: block; width: 100%; height: auto; }
+.portrait img { display: block; width: 100%; height: auto; border-radius: 12px; }
 
 /* kontakt */
 .contact { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; }
@@ -107,12 +113,14 @@ footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12
 
 /* lightbox */
 dialog {
-  border: 0; padding: 0; background: transparent; max-width: min(1100px, 94vw); width: 100%; color: #e6e9e5;
+  border: 0; padding: 0; background: transparent; max-width: min(1100px, 94vw); width: fit-content; color: #e6e9e5;
 }
-dialog::backdrop { background: rgba(10, 13, 12, .92); }
-dialog img { display: block; width: 100%; height: auto; max-height: 82vh; object-fit: contain; }
-.lb-bar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; padding-top: 12px; }
-.lb-bar h3 { font-family: var(--body); font-size: 1.1rem; font-weight: 600; }
+dialog::backdrop { background: #0a0d0c; }
+dialog img { display: block; width: auto; height: auto; max-width: min(1100px, 94vw); max-height: 82vh; }
+.lb-bar { min-width: min(320px, 94vw); }
+.lb-bar { display: grid; grid-template-columns: minmax(0, 1fr); justify-items: start; gap: 10px; padding-top: 12px; }
+.lb-bar .lb-nav { justify-self: center; }
+.lb-bar h3 { font-family: var(--body); font-size: 1.1rem; font-weight: 400; }
 .lb-nav { display: flex; gap: 8px; }
 .lb-nav button { font-family: var(--mono); background: transparent; color: #e6e9e5; border: 1px solid #4a5450; border-radius: 3px; padding: 6px 12px; cursor: pointer; }
 .lb-nav button:hover { border-color: #e6e9e5; }
@@ -121,6 +129,14 @@ dialog img { display: block; width: 100%; height: auto; max-height: 82vh; object
   .hero, .about, .contact { grid-template-columns: minmax(0, 1fr); gap: 28px; }
   .hero { padding-block: 32px; }
   .portrait { max-width: 120px; }
+  /* titulní strana se na mobilu vejde na jednu obrazovku */
+  .top { padding-block: 12px; }
+  .brand svg { width: 52px; height: 52px; }
+  .top nav a { font-size: .95rem; }
+  .hero { display: flex; flex-direction: column; gap: 16px; padding-block: 16px; height: calc(100vh - 77px); height: calc(100svh - 77px); }
+  .hero > div { align-self: flex-start; }
+  .hero figure { flex: 1 1 auto; min-height: 0; display: flex; justify-content: flex-start; }
+  .hero figure img, .hero figure video { height: 100%; width: auto; max-width: 100%; max-height: none; object-fit: contain; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
@@ -131,45 +147,46 @@ dialog img { display: block; width: 100%; height: auto; max-height: 82vh; object
   <header class="top">
     <a class="brand" href="#" aria-label="Vít Fikejzl, na začátek stránky"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="48" height="48" aria-hidden="true"><polygon points="11.5,42 11.5,11.5 42,11.5 42,16.5 16.5,16.5 16.5,42" fill="#1D1F22"/><polygon points="188.5,42 188.5,11.5 158,11.5 158,16.5 183.5,16.5 183.5,42" fill="#1D1F22"/><polygon points="11.5,158 11.5,188.5 42,188.5 42,183.5 16.5,183.5 16.5,158" fill="#1D1F22"/><polygon points="188.5,158 188.5,188.5 158,188.5 158,183.5 183.5,183.5 183.5,158" fill="#1D1F22"/><polygon points="33.93,50 50.11,50 93,123.97 93,50 107,50 107,157 95.96,157" fill="#1D1F22"/><polygon points="93,50 160.1,50 152,64 93,64" fill="#1D1F22"/><polygon points="93,93 138.1,93 130,107 93,107" fill="#1D1F22"/><circle cx="150" cy="150" r="7" fill="#D9402B"/></svg></a>
     <nav aria-label="Hlavní">
-      <a href="#galerie">Galerie</a>
-      <a href="#o-mne">O mně</a>
+      <a href="#galerie" data-i18n="navGal">Galerie</a>
+      <a href="#o-mne" data-i18n="navAbout">O mně</a>
+      <button type="button" class="lang" id="langBtn" aria-label="Switch to English">EN</button>
     </nav>
   </header>
 
-  <div class="hero">
+  <div class="hero" id="uvod">
     <div>
-      <h1 class="blok"><span class="l1">Vít Fikejzl</span> <span class="sub">starý <span>nadějný</span> fotograf</span></h1>
+      <h1 class="blok"><span class="l1">Vít Fikejzl</span> <span class="sub" data-i18n="sub1">starý <span>nadějný</span> fotograf</span></h1>
     </div>
     <figure>
-      <img src="foto/karluv-most-rano.jpg" width="1067" height="1600" alt="Sluneční metař: uklízeč na Karlově mostě před Staroměstskou mosteckou věží">
+      <video id="heroVideo" src="foto/metar.mp4" poster="foto/karluv-most-rano.jpg" width="720" height="1080" muted playsinline preload="auto" aria-label="Sluneční metař: uklízeč na Karlově mostě před Staroměstskou mosteckou věží"></video>
     </figure>
   </div>
 
   <section id="galerie" aria-labelledby="gal-h">
     <div class="sec-head">
       <div>
-        <h2 id="gal-h">Galerie</h2>
+        <h2 id="gal-h" data-i18n="galH">Galerie</h2>
       </div>
       <div class="filters" id="mainFilters" role="group" aria-label="Filtrovat podle tématu">
-        <button type="button" data-f="krajina" aria-pressed="false">Krajina</button>
-        <button type="button" data-f="hory" aria-pressed="false">Hory</button>
-        <button type="button" data-f="mesta" aria-pressed="false">Města</button>
-        <button type="button" data-f="priroda" aria-pressed="false">Příroda</button>
-        <button type="button" data-f="doprava" aria-pressed="false">Doprava</button>
-        <button type="button" data-f="lide" aria-pressed="false">Lidé</button>
-        <button type="button" data-f="kostely" aria-pressed="false">Kostely</button>
-        <button type="button" data-f="zeny" aria-pressed="false">Ženy</button>
-        <button type="button" data-f="nezarazeno" aria-pressed="false">Nezařazeno</button>
+        <button type="button" data-f="hory" data-i18n="f_hory" aria-pressed="false">Hory</button>
+        <button type="button" data-f="mesta" data-i18n="f_mesta" aria-pressed="false">Města</button>
+        <button type="button" data-f="krajina" data-i18n="f_krajina" aria-pressed="false">Krajina</button>
+        <button type="button" data-f="doprava" data-i18n="f_doprava" aria-pressed="false">Doprava</button>
+        <button type="button" data-f="priroda" data-i18n="f_priroda" aria-pressed="false">Příroda</button>
+        <button type="button" data-f="lide" data-i18n="f_lide" aria-pressed="false">Lidé</button>
+        <button type="button" data-f="kostely" data-i18n="f_kostely" aria-pressed="false">Kostely</button>
+        <button type="button" data-f="zeny" data-i18n="f_zeny" aria-pressed="false">Ženy</button>
+        <button type="button" data-f="nezarazeno" data-i18n="f_nezarazeno" aria-pressed="false">Nezařazeno</button>
       </div>
     </div>
     <div class="filters subfilters" id="subMesta" role="group" aria-label="Města" hidden>
-      <button type="button" data-sf="praha" aria-pressed="false">Praha</button>
-      <button type="button" data-sf="barcelona" aria-pressed="false">Barcelona</button>
-      <button type="button" data-sf="ostatni" aria-pressed="false">Ostatní</button>
+      <button type="button" data-sf="praha" data-i18n="sf_praha" aria-pressed="false">Praha</button>
+      <button type="button" data-sf="barcelona" data-i18n="sf_barcelona" aria-pressed="false">Barcelona</button>
+      <button type="button" data-sf="ostatni" data-i18n="sf_ostatni" aria-pressed="false">Ostatní</button>
     </div>
     <div class="grid" id="grid"></div>
     <p class="note" id="hint">Vyberte kategorii a zobrazí se fotky.</p>
-    <p class="note" id="empty" hidden>V této kategorii zatím nejsou žádné fotky.</p>
+    <p class="note" id="empty" data-i18n="empty" hidden>V této kategorii zatím nejsou žádné fotky.</p>
   </section>
 
   <section id="o-mne" aria-labelledby="about-h">
@@ -180,7 +197,7 @@ dialog img { display: block; width: 100%; height: auto; max-height: 82vh; object
           <figcaption style="margin-top:8px;font-size:.9rem;color:var(--muted)">*&nbsp;1962<br>Jindřichův Hradec</figcaption>
         </figure>
         <div id="kontakt" class="contact-box">
-          <p class="label">Kontakt</p>
+          <p class="label" data-i18n="contact">Kontakt</p>
           <div class="mail">
             <code id="mailAddr">fikejzl@seznam.cz</code>
           </div>
@@ -190,8 +207,9 @@ dialog img { display: block; width: 100%; height: auto; max-height: 82vh; object
         </div>
       </div>
       <div>
-        <p class="label">O mně</p>
-        <h2 id="about-h" class="blok" style="font-size:clamp(2.2rem,5vw,3.4rem);margin-bottom:20px"><span class="l1">Vít Fikejzl</span> <span class="sub">starý <span style="color:var(--accent)">nadějný</span> fotograf</span></h2>
+        <p class="label" data-i18n="aboutLabel">O mně</p>
+        <h2 id="about-h" class="blok" style="font-size:clamp(2.2rem,5vw,3.4rem);margin-bottom:20px"><span class="l1">Vít Fikejzl</span> <span class="sub" data-i18n="sub2">starý <span style="color:var(--sun)">nadějný</span> fotograf</span></h2>
+        <div data-i18n="aboutText">
         <p>Latinský původ mého jména vitus značí živoucí, radostný, veselý, což předznamenává, že fotím zejména pro radost. Už mi bylo šedesát, proto jsem se nazval starým nadějným fotografem.</p>
         <p>Svět je barevný, a proto ho fotím barevně. Černá a bílá jsou také barvy, proto fotím i černobíle. Občas zkusím něco mezi.</p>
         <p>Nerad sedím na mezi, raději jsem v horách. Jsem však schopen vyfotit i krajinu placatou.</p>
@@ -200,6 +218,7 @@ dialog img { display: block; width: 100%; height: auto; max-height: 82vh; object
         <p>Mimo Prahu jezdím rád na kole. Ti za mnou si dávají větší odstup, protože vědí, že mohu kdykoliv prudce zabrzdit a začít fotit.</p>
         <p>Krajinu občas doplním nějakou slečnou, které bývá v létě vedro, a tak mi nezbývá než ji vyfotit, jak je.</p>
         <p>Ve své tvorbě střídám minimalistický a maximalistický přístup. Přijde mi líto, že můj foťák má milióny pixelů, a tak se minimálně několikrát ročně vynasnažím, aby maximální množství pixelů mohlo zazářit různými barvami.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -214,14 +233,23 @@ dialog img { display: block; width: 100%; height: auto; max-height: 82vh; object
   <div class="lb-bar">
     <div><h3 id="lbTitle"></h3></div>
     <div class="lb-nav">
-      <button type="button" id="lbPrev" aria-label="Předchozí">←</button>
-      <button type="button" id="lbNext" aria-label="Další">→</button>
-      <button type="button" id="lbClose">Zavřít</button>
+      <button type="button" id="lbPrev" data-i18n-aria="prev" aria-label="Předchozí">←</button>
+      <button type="button" id="lbNext" data-i18n-aria="next" aria-label="Další">→</button>
+      <button type="button" id="lbClose" data-i18n="close">Zavřít</button>
     </div>
   </div>
 </dialog>
 
 <script>
+// ===== jazyk (CZ / EN) =====
+const TITLE_EN = {"Sluneční metař": "Sun Sweeper", "Letíme do mlhy": "Flying into the Fog", "Náplavka": "The Embankment", "Obilí": "Grain", "Z železničního hřbitova": "From the Railway Graveyard", "Červená": "Red", "Skleničky": "Glasses", "Dívka z Boquerie": "Girl from La Boqueria", "Maják v Sučuraji": "Lighthouse in Sućuraj", "Benátky, z kampanily svatého Marka": "Venice, from St Mark's Campanile", "Benátky": "Venice", "Jindřichův Hradec, zámek": "Jindřichův Hradec, Château", "Ze Štvanice": "From Štvanice Island", "Tulipán": "Tulip", "Tulipán II": "Tulip II", "Křivky": "Curves", "Slamák": "Straw Hat", "Zátiší s berlemi I": "Still Life with Crutches I", "Zátiší s berlemi II": "Still Life with Crutches II", "Nad Strážným": "Above Strážný", "Cestou na Chleb I": "On the Way to Chleb I", "Cestou na Chleb II": "On the Way to Chleb II", "Cestou na Chleb III": "On the Way to Chleb III", "Z Chlebu": "From Chleb", "Dívka s bublifukem": "Girl with Soap Bubbles", "Pohled z Watles": "View from Watles", "Praha - hlavní nádraží": "Prague – Main Station", "Čáp": "The Stork", "Vůz vlakové pošty": "Railway Post Car", "V Motolském ordoviku": "In the Motol Ordovician", "La Pedrera, na střeše": "La Pedrera, on the Roof", "La Pedrera, nádvoří": "La Pedrera, Courtyard", "Z Tibidaba": "From Tibidabo", "Masopust v Hlubočepích I": "Carnival in Hlubočepy I", "Masopust v Hlubočepích II": "Carnival in Hlubočepy II", "Masopust v Hlubočepích III": "Carnival in Hlubočepy III", "Masopust v Hlubočepích IV": "Carnival in Hlubočepy IV", "Masopust v Roztokách": "Carnival in Roztoky", "Stěhování pošty Praha 120 I": "Moving the Prague 120 Post Office I", "Stěhování pošty Praha 120 II": "Moving the Prague 120 Post Office II", "Zbrojnoš": "Squire", "Z Vodičkovy ulice": "From Vodičkova Street", "Miminka": "Babies", "Kafkova hlava": "Kafka's Head", "Lennonova zeď": "Lennon Wall", "Na procházce": "Out for a Walk", "Ze severní věže hlavního nádraží": "From the North Tower of the Main Station", "Petrské náměstí": "Petrské Square", "Masaryčka": "Masaryk Station", "Mateřská škola Kostelní": "Kostelní Street Kindergarten", "Z Velké strahovské zahrady I": "From the Great Strahov Garden I", "Františkánská zahrada": "Franciscan Garden", "Pražský čas I": "Prague Time I", "Pražský čas II": "Prague Time II", "Pražský čas III": "Prague Time III", "Pražský čas IV": "Prague Time IV", "Racci": "Gulls", "Dohráno": "Final Notes", "Brambůrky": "Crisps", "Tance I": "Dances I", "Tance II": "Dances II", "Po schodech": "Down the Stairs", "Trojčata na útěku": "Triplets on the Run", "Zvoníci ve svatém Vítu I": "Bell Ringers of St Vitus I", "Zvoníci ve svatém Vítu II": "Bell Ringers of St Vitus II", "Z mníšecké poutě I": "From the Mníšek Fair I", "Z mníšecké poutě II": "From the Mníšek Fair II", "Z Velké kunratické": "From Velká Kunratická", "Sukně": "Skirt", "Hra": "Play", "Na Dalejském potoce": "On Dalejský Brook", "Z Černého lomu": "From the Black Quarry", "Co je tam dole I": "What's Down There I", "Co je tam dole II": "What's Down There II", "U dubu": "By the Oak", "Od Kežmaroku": "From Kežmarok", "Kamenožrout": "Stone Eater", "Panský hříbek": "The Gentleman's Mushroom", "Hřib v trávě I": "Bolete in the Grass I", "Okolo Třeboně": "Around Třeboň", "Blatná, zámek": "Blatná, Château", "Šumava, Roklanský potok": "Šumava, Roklanský Brook", "Zelená řeka": "Green River", "U Řeporyjí": "Near Řeporyje", "Hlubočepské jezírko": "Hlubočepy Pond", "Jaro u rybníka": "Spring by the Pond", "Nad Koněprusy": "Above Koněprusy", "U Zálší": "Near Zálší", "Ze zahrady Břevnovského kláštera": "From the Garden of Břevnov Monastery", "U Svaté Anny": "By St Anne's", "Nad Sezimovým Ústím": "Above Sezimovo Ústí", "Vlčí máky": "Poppies", "Nevěsta a ženich": "Bride and Groom", "U Hájů": "Near Háje", "Na Hamerském potoce": "On Hamerský Brook", "Přišlo jaro": "Spring Has Come", "Podzim v Mníšku pod Brdy I": "Autumn in Mníšek pod Brdy I", "Podzim v Mníšku pod Brdy II": "Autumn in Mníšek pod Brdy II", "Koniklec": "Pasqueflower", "Modřenec": "Grape Hyacinth", "Jabloňový květ": "Apple Blossom", "Chorvatsko, Cavtat": "Croatia, Cavtat", "Pláž v Malii": "Beach in Malia", "Nad Černovicemi": "Above Černovice", "Na břehu Innu I": "On the Banks of the Inn I", "Na břehu Innu II": "On the Banks of the Inn II", "Od Žirovnice": "From Žirovnice", "Cestou na Mljet": "On the Way to Mljet", "Vyhlídka na Gargano": "View of Gargano", "Maják v Postiře": "Lighthouse in Postira", "Břevnovský klášter, Vojtěška": "Břevnov Monastery, Vojtěška", "Zvonička u Marunov": "Bell Tower near Marunov", "Pohled z Cime de Caron": "View from Cime de Caron", "Les Trois Vallées, pohled do čtvrtého údolí": "Les Trois Vallées, View into the Fourth Valley", "Kopečky": "Little Hills", "Listování": "Leafing Through", "Tramvaj": "Tram", "Zvoníci ve svatém Vítu III": "Bell Ringers of St Vitus III", "Zvoníci ve svatém Vítu IV": "Bell Ringers of St Vitus IV", "Z Bašky": "From Baška", "Prvić II": "Prvić II", "Lávka v Roudné": "Footbridge in Roudná", "Z Velké strahovské zahrady II": "From the Great Strahov Garden II", "Kachna": "Duck", "Pod Velkou Deštnou": "Below Velká Deštná", "Na Velký Rozsutec": "On the Way up Veľký Rozsutec", "Ze Starhradu": "From Starhrad", "U Riva del Garda": "Near Riva del Garda", "Nad Cavtatem": "Above Cavtat", "Šumava Javorník": "Šumava, Javorník", "Koně z Adamella": "Horses of Adamello", "U Gornje Igrane": "Near Gornja Igrane", "Pod Dvoračkami": "Below Dvoračky", "Kostelník": "The Sexton", "Pláž u Soči": "Beach on the Soča", "U chaty Prdek": "Near the Prdek Cottage", "Hřib v trávě II": "Bolete in the Grass II", "Hrad, Španělský sál": "Prague Castle, Spanish Hall", "Hrad, Široká chodba": "Prague Castle, The Wide Corridor", "Koniklec II": "Pasqueflower II", "Zelená hora": "Zelená Hora", "Zvonička u Marunov II": "Bell Tower near Marunov II", "Cestou z Jelsy do Bolu": "On the Way from Jelsa to Bol", "Z Vidovy hory": "From Vidova Gora", "Z Postiry": "From Postira", "Berlín": "Berlin", "Denisa a Dufík I": "Denisa and Dufík I", "Denisa a Dufík II": "Denisa and Dufík II", "Pod Zličínem": "Below Zličín", "Nadějná strojvůdkyně": "Promising Train Driver", "Šlechtična": "The Noblewoman", "Od Žlutých lázní": "From Žluté lázně", "Z Korčuly": "From Korčula"};
+const T = { cs: {"hint": "Vyberte kategorii a zobrazí se fotky.", "hintCity": "Vyberte Prahu, Barcelonu nebo Ostatní a zobrazí se fotky.", "enlarge": "Zvětšit snímek: ", "btn": "EN", "btnAria": "Switch to English", "dlg": "Náhled snímku", "brand": "Vít Fikejzl, na začátek stránky"}, en: {"navGal": "Gallery", "navAbout": "About", "sub1": "old <span>promising</span> photographer", "sub2": "old <span style=\"color:var(--sun)\">promising</span> photographer", "galH": "Gallery", "f_krajina": "Landscape", "f_hory": "Mountains", "f_mesta": "Cities", "f_priroda": "Nature", "f_doprava": "Transport", "f_lide": "People", "f_kostely": "Churches", "f_zeny": "Women", "f_nezarazeno": "Uncategorised", "sf_praha": "Prague", "sf_barcelona": "Barcelona", "sf_ostatni": "Other", "empty": "There are no photos in this category yet.", "contact": "Contact", "aboutLabel": "About me", "aboutText": "\n          <p>The Latin root of my name, <i>vitus</i>, means lively, joyful and cheerful, which tells you that I take photos mainly for joy. I'm past sixty, so I call myself an old promising photographer.</p>\n          <p>The world is colourful, so I photograph it in colour. Black and white are colours too, so I shoot black and white as well. Now and then I try something in between.</p>\n          <p>I don't like sitting on the fence. I'd rather be in the mountains. Still, I'm perfectly capable of photographing flat countryside too.</p>\n          <p>I make my commute more pleasant by photographing Prague. My employer helps by having its office right in the centre, so I can change my route at will, radiating out like a star.</p>\n          <p>I once won the Other category in an astronomy competition, even though there wasn't a single star in the photo. Photographing Prague has earned me a few diplomas, which I keep in a drawer.</p>\n          <p>Outside Prague I like to ride my bike. Those behind me keep their distance, because they know I may brake hard at any moment and start taking pictures.</p>\n          <p>Now and then I add a young lady to the landscape. Summers are hot, she tends to feel the heat, and I have no choice but to photograph her as she is.</p>\n          <p>In my work I alternate between minimalism and maximalism. It seems a shame that my camera has millions of pixels, so at least a few times a year I make an effort to let as many of them as possible shine in all sorts of colours.</p>\n", "close": "Close", "prev": "Previous", "next": "Next", "hint": "Choose a category to see the photos.", "hintCity": "Choose Prague, Barcelona or Other to see the photos.", "enlarge": "Enlarge photo: ", "btn": "CZ", "btnAria": "Přepnout do češtiny", "dlg": "Photo preview", "brand": "Vít Fikejzl, back to the start"} };
+document.querySelectorAll("[data-i18n]").forEach(el => { const k = el.dataset.i18n; if (!(k in T.cs)) T.cs[k] = el.innerHTML; });
+document.querySelectorAll("[data-i18n-aria]").forEach(el => { const k = el.dataset.i18nAria; if (!(k in T.cs)) T.cs[k] = el.getAttribute("aria-label"); });
+let lang = "cs";
+try { const saved = localStorage.getItem("lang"); if (saved === "cs" || saved === "en") lang = saved; else if (!/^(cs|sk)/i.test(navigator.language || "cs")) lang = "en"; } catch (e) {}
+function title(p) { return lang === "en" ? (TITLE_EN[p.t] || p.t) : p.t; }
+
 // oba řádky jména stejně široké (do bloku)
 function fitBlok() {
   document.querySelectorAll(".blok").forEach(h => {
@@ -242,32 +270,40 @@ const PHOTOS = [
   { t: "Sluneční metař", c: "mesta praha", src: "foto/karluv-most-rano.jpg", w: 1067, h: 1600 },
   { t: "Letíme do mlhy", c: "mesta praha", src: "foto/racci-v-mlze.jpg", w: 1200, h: 900 },
   { t: "Náplavka", c: "mesta praha", src: "foto/naplavka-cyklista.jpg", w: 768, h: 1024 },
-  { t: "Obilí", c: "priroda", src: "foto/jecmenne-pole.jpg", w: 1200, h: 1600 },
   { t: "Z železničního hřbitova", c: "doprava", src: "foto/vagon-leo-express.jpg", w: 1200, h: 900 },
+  { t: "Červená", c: "doprava", src: "foto/cervena.jpg", w: 2000, h: 1500 },
   { t: "Skleničky", c: "", src: "foto/sklenice.jpg", w: 1600, h: 1200 },
   { t: "Badalona", c: "krajina mesta barcelona", src: "foto/badalona.jpg", w: 1600, h: 1067 },
+  { t: "Táňa", c: "zeny", src: "foto/tana.jpg", w: 1600, h: 900 },
   { t: "Dívka z Boquerie", c: "zeny mesta barcelona", src: "foto/boqueria.jpg", w: 1600, h: 1067 },
   { t: "Maják v Sučuraji", c: "krajina", src: "foto/majak-sucuraj.jpg", w: 1600, h: 1063 },
-  { t: "Barcelona, Santa Maria del Mar", c: "kostely mesta barcelona", src: "foto/santa-maria-del-mar.jpg", w: 1600, h: 1067 },
   { t: "Hamburg, Elphi", c: "mesta", src: "foto/elbphilharmonie.jpg", w: 2000, h: 1333 },
   { t: "Hamburg, Elphi II", c: "mesta", src: "foto/hamburg-elphi-2.jpg", w: 2000, h: 1333 },
   { t: "Hamburg, Speicherstadt", c: "mesta", src: "foto/speicherstadt.jpg", w: 2000, h: 1333 },
   { t: "Benátky, z kampanily svatého Marka", c: "mesta", src: "foto/vyhled-z-kampanily.jpg", w: 2000, h: 1333 },
   { t: "Benátky", c: "mesta", src: "foto/benatky.jpg", w: 2000, h: 1334 },
+  { t: "Korčula", c: "mesta", src: "foto/cestou-z-jelsy-do-bolu.jpg", w: 2000, h: 1333 },
+  { t: "Milna", c: "mesta", src: "foto/milna.jpg", w: 2000, h: 1333 },
+  { t: "Berlín", c: "mesta", src: "foto/berlin.jpg", w: 2000, h: 1333 },
   { t: "Svitavy", c: "mesta", src: "foto/kasna-na-namesti.jpg", w: 2000, h: 1333 },
   { t: "Jindřichův Hradec, zámek", c: "mesta", src: "foto/jindrichuv-hradec.jpg", w: 2000, h: 1334 },
+  { t: "Jindřichův Hradec", c: "mesta", src: "foto/jindrichuv-hradec-mesto.jpg", w: 1600, h: 1067 },
   { t: "Ze Štvanice", c: "mesta praha", src: "foto/ze-stvanice.jpg", w: 1600, h: 1067 },
   { t: "Tulipán", c: "", src: "foto/tulipan.jpg", w: 1600, h: 1200 },
   { t: "Tulipán II", c: "priroda", src: "foto/tulipan-2.jpg", w: 1600, h: 1200 },
   { t: "Křivky", c: "", src: "foto/krivky.jpg", w: 2000, h: 1333 },
   { t: "Slamák", c: "", src: "foto/klobouk-na-vetvi.jpg", w: 2000, h: 1333 },
+  { t: "Zátiší s berlemi I", c: "", src: "foto/berle-u-okna-1.jpg", w: 2000, h: 1333 },
+  { t: "Zátiší s berlemi II", c: "", src: "foto/berle-u-okna-2.jpg", w: 1200, h: 800 },
   { t: "Samnaun", c: "hory", src: "foto/samnaun.jpg", w: 2000, h: 1333 },
   { t: "Nad Strážným", c: "hory", src: "foto/nad-straznym.jpg", w: 1600, h: 1067 },
-  { t: "Cestou na Chleb", c: "hory", src: "foto/cestou-na-chleb.jpg", w: 1000, h: 667 },
-  { t: "Z Chlebu", c: "hory", src: "foto/z-chlebu.jpg", w: 1000, h: 667 },
   { t: "Dívka s bublifukem", c: "zeny", src: "foto/divka-s-bublifukem.jpg", w: 1600, h: 900 },
   { t: "Pohled z Watles", c: "hory", src: "foto/pohled-z-watles.jpg", w: 2000, h: 1333 },
-  { t: "433.001", c: "doprava", src: "foto/433-001.jpg", w: 1600, h: 1067 },
+  { t: "Skaličák 433.001", c: "doprava", src: "foto/433-001.jpg", w: 1600, h: 1067 },
+  { t: "Tramvaj", c: "doprava mesta praha", src: "foto/tramvaj.jpg", w: 1500, h: 2000 },
+  { t: "Pod Zličínem", c: "doprava", src: "foto/pod-zlicinem.jpg", w: 2000, h: 1333 },
+  { t: "Keep chicks burning", c: "doprava", src: "foto/keep-chicken-burning.jpg", w: 2000, h: 1333 },
+  { t: "Šlechtična", c: "doprava", src: "foto/slechticna.jpg", w: 1600, h: 900 },
   { t: "Praha - hlavní nádraží", c: "doprava", src: "foto/praha-hlavni-nadrazi-koleje.jpg", w: 2000, h: 1333 },
   { t: "Čáp", c: "doprava", src: "foto/cap.jpg", w: 2000, h: 1333 },
   { t: "Vůz vlakové pošty", c: "doprava", src: "foto/vuz-vlakove-posty.jpg", w: 2000, h: 1333 },
@@ -297,23 +333,95 @@ const PHOTOS = [
   { t: "Petrské náměstí", c: "mesta praha", src: "foto/praha-lucerna-a-hodiny.jpg", w: 2000, h: 1333 },
   { t: "Masaryčka", c: "mesta praha doprava", src: "foto/praha-hlavni-nadrazi.jpg", w: 2000, h: 1333 },
   { t: "Mateřská škola Kostelní", c: "mesta praha", src: "foto/praha-zvlnena-stavba.jpg", w: 2000, h: 1500 },
-  { t: "Z Velké strahovské zahrady", c: "mesta praha", src: "foto/praha-vychod-slunce.jpg", w: 1600, h: 1067 },
+  { t: "Z Velké strahovské zahrady I", c: "mesta praha", src: "foto/strahovska-zahrada-2.jpg", w: 2000, h: 1333 },
+  { t: "Z Velké strahovské zahrady II", c: "mesta praha", src: "foto/praha-vychod-slunce.jpg", w: 1600, h: 1067 },
   { t: "Stínadla", c: "mesta praha", src: "foto/praha-zed-s-graffiti.jpg", w: 1600, h: 1067 },
   { t: "Františkánská zahrada", c: "mesta praha", src: "foto/praha-vzletajici-holub.jpg", w: 2000, h: 1336 },
+  { t: "Pražský čas I", c: "mesta praha", src: "foto/prazsky-cas-1.jpg", w: 2000, h: 1333 },
+  { t: "Pražský čas II", c: "mesta praha", src: "foto/prazsky-cas-2.jpg", w: 2000, h: 1333 },
+  { t: "Pražský čas III", c: "mesta praha", src: "foto/prazsky-cas-3.jpg", w: 2000, h: 1333 },
+  { t: "Pražský čas IV", c: "mesta praha", src: "foto/prazsky-cas-4.jpg", w: 2000, h: 1333 },
+  { t: "U Zvonu I", c: "mesta praha", src: "foto/u-zvonu-1.jpg", w: 2000, h: 1333 },
+  { t: "U Zvonu II", c: "mesta praha", src: "foto/u-zvonu-2.jpg", w: 2000, h: 1333 },
+  { t: "Racci", c: "mesta praha", src: "foto/racci.jpg", w: 2000, h: 1500 },
   { t: "Dohráno", c: "lide", src: "foto/dohrano.jpg", w: 2000, h: 1334 },
   { t: "Brambůrky", c: "lide", src: "foto/bramburky.jpg", w: 1600, h: 1067 },
+  { t: "Tance I", c: "lide", src: "foto/tance-1.jpg", w: 1200, h: 900 },
+  { t: "Tance II", c: "lide", src: "foto/tance-2.jpg", w: 1200, h: 900 },
+  { t: "Po schodech", c: "lide", src: "foto/po-schodech.jpg", w: 2000, h: 1333 },
+  { t: "Kostelník", c: "lide", src: "foto/kostelnik.jpg", w: 1067, h: 1600 },
+  { t: "Karinka", c: "lide", src: "foto/karinka.jpg", w: 1600, h: 1067 },
+  { t: "Trojčata na útěku", c: "lide", src: "foto/trojcata-na-uteku.jpg", w: 2000, h: 1333 },
+  { t: "Zvoníci ve svatém Vítu I", c: "lide", src: "foto/zvonici-1.jpg", w: 2000, h: 1333 },
+  { t: "Zvoníci ve svatém Vítu II", c: "lide", src: "foto/zvonici-2.jpg", w: 2000, h: 1333 },
+  { t: "Zvoníci ve svatém Vítu III", c: "lide", src: "foto/zvonici-3.jpg", w: 2000, h: 1333 },
+  { t: "Zvoníci ve svatém Vítu IV", c: "lide", src: "foto/zvonici-4.jpg", w: 2000, h: 1333 },
   { t: "Z mníšecké poutě I", c: "", src: "foto/mnisecka-pout.jpg", w: 2000, h: 1333 },
   { t: "Z mníšecké poutě II", c: "", src: "foto/mnisecka-pout-2.jpg", w: 2000, h: 1334 },
-  { t: "Z Velké kunratické", c: "zeny", src: "foto/z-velke-kunraticke.jpg", w: 1067, h: 1600 },
-  { t: "Kristýna", c: "zeny", src: "foto/kristyna.jpg", w: 2000, h: 1334 },
-  { t: "Sukně", c: "zeny", src: "foto/sukne.jpg", w: 1600, h: 1600 },
-  { t: "Eva", c: "zeny", src: "foto/eva.jpg", w: 1334, h: 2000 },
   { t: "Lucie", c: "zeny", src: "foto/lucie.jpg", w: 1600, h: 1200 },
-  { t: "Hra", c: "zeny", src: "foto/hra.jpg", w: 2000, h: 1500 },
   { t: "Maja", c: "zeny", src: "foto/maja.jpg", w: 2000, h: 1333 },
+  { t: "Katarína", c: "zeny", src: "foto/katarina.jpg", w: 1600, h: 1200 },
+  { t: "Dominika I", c: "zeny", src: "foto/dominika.jpg", w: 2000, h: 2000 },
+  { t: "Dominika II", c: "zeny", src: "foto/dominika-2.jpg", w: 1333, h: 2000 },
+  { t: "Co je tam dole I", c: "zeny", src: "foto/co-je-tam-dole.jpg", w: 1334, h: 2000 },
+  { t: "Veronika", c: "zeny", src: "foto/veronika.jpg", w: 1600, h: 900 },
+  { t: "Eva V. I", c: "zeny", src: "foto/eva-v.jpg", w: 1600, h: 1128 },
+  { t: "Eva V. II", c: "zeny", src: "foto/eva.jpg", w: 1334, h: 2000 },
+  { t: "Z Velké kunratické", c: "zeny", src: "foto/z-velke-kunraticke.jpg", w: 1067, h: 1600 },
+  { t: "Denisa", c: "zeny", src: "foto/denisa.jpg", w: 1600, h: 1067 },
+  { t: "Denisa a Dufík I", c: "zeny", src: "foto/denisa-a-dufik-1.jpg", w: 2000, h: 1125 },
+  { t: "Denisa a Dufík II", c: "zeny", src: "foto/denisa-a-dufik-2.jpg", w: 2000, h: 2000 },
+  { t: "Zu I", c: "zeny", src: "foto/zu-1.jpg", w: 1600, h: 1200 },
+  { t: "Zu II", c: "zeny", src: "foto/zu-2.jpg", w: 1600, h: 1000 },
+  { t: "Nikola I", c: "zeny", src: "foto/nikola-1.jpg", w: 1600, h: 1067 },
+  { t: "Nikola II", c: "zeny", src: "foto/nikola-2.jpg", w: 2000, h: 1500 },
+  { t: "Sukně", c: "zeny", src: "foto/sukne.jpg", w: 1600, h: 1600 },
+  { t: "Kristýna V.", c: "zeny", src: "foto/kristyna.jpg", w: 2000, h: 1334 },
+  { t: "Terezia I", c: "zeny", src: "foto/terezia-0.jpg", w: 1500, h: 2000 },
+  { t: "Terezia II", c: "zeny", src: "foto/terezia-1.jpg", w: 1500, h: 2000 },
+  { t: "Terezia III", c: "zeny", src: "foto/terezia-2.jpg", w: 2000, h: 2000 },
+  { t: "Terezia IV", c: "zeny", src: "foto/terezia-3.jpg", w: 2000, h: 1333 },
+  { t: "Terezia V", c: "zeny", src: "foto/terezia-6.jpg", w: 2000, h: 1500 },
+  { t: "Terezia VI", c: "zeny", src: "foto/terezia-4.jpg", w: 2000, h: 1333 },
+  { t: "Terezia VII", c: "zeny", src: "foto/terezia-5.jpg", w: 2000, h: 1333 },
+  { t: "Terezia VIII", c: "zeny", src: "foto/terezia-7.jpg", w: 2000, h: 1333 },
+  { t: "Terezia IX", c: "zeny", src: "foto/terezia-9.jpg", w: 2000, h: 1333 },
+  { t: "Terezia X", c: "zeny", src: "foto/terezia-10.jpg", w: 2000, h: 1333 },
+  { t: "Jarka I", c: "zeny", src: "foto/zrcadlo-1.jpg", w: 1500, h: 2000 },
+  { t: "Jarka II", c: "zeny", src: "foto/zrcadlo-2.jpg", w: 2000, h: 1333 },
+  { t: "Jarka III", c: "zeny", src: "foto/jarka-3.jpg", w: 2000, h: 2000 },
+  { t: "Jarka IV", c: "zeny", src: "foto/jarka-4.jpg", w: 2000, h: 1500 },
+  { t: "Jarka V", c: "zeny", src: "foto/jarka-5.jpg", w: 2000, h: 1500 },
+  { t: "Anetta Ginger I", c: "zeny", src: "foto/anetta-ginger.jpg", w: 2000, h: 1500 },
+  { t: "Anetta Ginger II", c: "zeny", src: "foto/anetta-ginger-2.jpg", w: 2000, h: 1500 },
+  { t: "Anetta Ginger III", c: "zeny", src: "foto/anetta-ginger-3.jpg", w: 1500, h: 2000 },
+  { t: "Anetta Ginger IV", c: "zeny", src: "foto/anetta-ginger-4.jpg", w: 2000, h: 1333 },
+  { t: "Rita I", c: "zeny", src: "foto/rita.jpg", w: 2000, h: 1333 },
+  { t: "Rita II", c: "zeny", src: "foto/rita-2.jpg", w: 2000, h: 1333 },
+  { t: "Rita III", c: "zeny", src: "foto/rita-3.jpg", w: 2000, h: 1500 },
+  { t: "Rita IV", c: "zeny", src: "foto/rita-4.jpg", w: 2000, h: 1500 },
+  { t: "Claire", c: "zeny", src: "foto/claire.jpg", w: 1200, h: 800 },
+  { t: "Nadějná strojvůdkyně", c: "zeny", src: "foto/nadejna-strojvudkyne.jpg", w: 800, h: 1200 },
+  { t: "Hra", c: "zeny", src: "foto/hra.jpg", w: 2000, h: 1500 },
   { t: "Na Dalejském potoce", c: "zeny", src: "foto/na-dalejskem-potoce.jpg", w: 2000, h: 1333 },
   { t: "Z Černého lomu", c: "zeny", src: "foto/z-cerneho-lomu.jpg", w: 2000, h: 1500 },
   { t: "Lucy L", c: "zeny", src: "foto/lucy-l.jpg", w: 1200, h: 900 },
+  { t: "Krystýna", c: "zeny", src: "foto/krystyna.jpg", w: 2000, h: 2000 },
+  { t: "Listování", c: "zeny", src: "foto/listovani.jpg", w: 1074, h: 1432 },
+  { t: "Terryz I", c: "zeny", src: "foto/terryz-1.jpg", w: 2000, h: 2000 },
+  { t: "Terryz II", c: "zeny", src: "foto/terryz-2.jpg", w: 2000, h: 1125 },
+  { t: "Terryz III", c: "zeny", src: "foto/terryz-3.jpg", w: 2000, h: 1125 },
+  { t: "Johemian I", c: "zeny", src: "foto/u-dubu.jpg", w: 1333, h: 2000 },
+  { t: "Johemian II", c: "zeny", src: "foto/johemian-2.jpg", w: 1333, h: 2000 },
+  { t: "Johemian III", c: "zeny", src: "foto/johemian-3.jpg", w: 1500, h: 2000 },
+  { t: "Johemian IV", c: "zeny", src: "foto/johemian-4.jpg", w: 2000, h: 1333 },
+  { t: "Johemian V", c: "zeny", src: "foto/johemian-10.jpg", w: 1600, h: 1067 },
+  { t: "Johemian VI", c: "zeny", src: "foto/johemian-6.jpg", w: 2000, h: 1333 },
+  { t: "Viktória", c: "zeny", src: "foto/viktoria.jpg", w: 2000, h: 1333 },
+  { t: "Viktória II", c: "zeny", src: "foto/viktoria-2.jpg", w: 2000, h: 1125 },
+  { t: "Viktória III", c: "zeny", src: "foto/viktoria-3.jpg", w: 2000, h: 1333 },
+  { t: "Viktória IV", c: "zeny", src: "foto/viktoria-4.jpg", w: 1331, h: 2000 },
+  { t: "Eliška", c: "zeny", src: "foto/eliska.jpg", w: 1600, h: 1000 },
   { t: "Od Kežmaroku", c: "hory", src: "foto/od-kezmaroku.jpg", w: 2000, h: 1333 },
   { t: "Tcheyeck", c: "hory", src: "foto/tcheyeck.jpg", w: 2000, h: 1333 },
   { t: "Sasslong", c: "hory", src: "foto/sasslong.jpg", w: 2000, h: 1333 },
@@ -322,10 +430,12 @@ const PHOTOS = [
   { t: "Seceda", c: "hory", src: "foto/seceda.jpg", w: 2000, h: 1333 },
   { t: "Kamenožrout", c: "hory", src: "foto/kamenozrout.jpg", w: 2000, h: 1333 },
   { t: "Panský hříbek", c: "priroda", src: "foto/hrib-v-mechu.jpg", w: 2000, h: 1333 },
-  { t: "Hřib v trávě", c: "priroda", src: "foto/hrib-v-trave.jpg", w: 2000, h: 1333 },
+  { t: "Hřib v trávě I", c: "priroda", src: "foto/hrib-v-trave.jpg", w: 2000, h: 1333 },
+  { t: "Hřib v trávě II", c: "priroda", src: "foto/hrib-v-mechu-2.jpg", w: 2000, h: 1500 },
   { t: "Okolo Třeboně", c: "priroda", src: "foto/lavicka-v-parku.jpg", w: 2000, h: 1333 },
   { t: "Castelldefels", c: "krajina", src: "foto/vlny-a-mraky.jpg", w: 2000, h: 1333 },
   { t: "Blatná, zámek", c: "mesta", src: "foto/zamek-nad-rybnikem.jpg", w: 2000, h: 1333 },
+  { t: "Z Bašky", c: "mesta", src: "foto/z-basky.jpg", w: 2000, h: 1333 },
   { t: "Šumava, Roklanský potok", c: "hory", src: "foto/cesta-podel-reky.jpg", w: 2000, h: 1333 },
   { t: "Zelená řeka", c: "priroda", src: "foto/zelena-reka.jpg", w: 2000, h: 1333 },
   { t: "U Řeporyjí", c: "krajina mesta praha", src: "foto/zapad-slunce-v-borovicich.jpg", w: 2000, h: 1333 },
@@ -334,28 +444,95 @@ const PHOTOS = [
   { t: "Nad Koněprusy", c: "priroda", src: "foto/hadinec-v-trave.jpg", w: 2000, h: 1333 },
   { t: "U Zálší", c: "priroda", src: "foto/lesni-cesta.jpg", w: 2000, h: 1333 },
   { t: "Ze zahrady Břevnovského kláštera", c: "mesta praha", src: "foto/dva-buky.jpg", w: 2000, h: 1333 },
+  { t: "Od Žlutých lázní", c: "mesta praha", src: "foto/od-zlutych-lazni.jpg", w: 2000, h: 1333 },
+  { t: "Hrad, Španělský sál", c: "mesta praha", src: "foto/spanelsky-sal.jpg", w: 2000, h: 1333 },
+  { t: "Hrad, Široká chodba", c: "mesta praha", src: "foto/siroka-chodba.jpg", w: 2000, h: 1333 },
   { t: "U Svaté Anny", c: "krajina", src: "foto/jinovatka-a-mlha.jpg", w: 2000, h: 1333 },
   { t: "Nad Sezimovým Ústím", c: "priroda", src: "foto/dub-s-jinovatkou.jpg", w: 2000, h: 1333 },
+  { t: "Vlčí máky", c: "priroda", src: "foto/vlci-maky.jpg", w: 1600, h: 1067 },
+  { t: "Nevěsta a ženich", c: "priroda", src: "foto/nevesta-a-zenich.jpg", w: 2000, h: 1333 },
+  { t: "U Hájů", c: "priroda", src: "foto/u-haju.jpg", w: 2000, h: 1333 },
+  { t: "Co je tam dole II", c: "priroda", src: "foto/co-je-tam-dole-2.jpg", w: 1333, h: 2000 },
+  { t: "Na Hamerském potoce", c: "krajina", src: "foto/na-hamerskem-potoce.jpg", w: 2000, h: 1333 },
+  { t: "Přišlo jaro", c: "priroda", src: "foto/prislo-jaro.jpg", w: 2000, h: 1500 },
+  { t: "Kachna", c: "priroda", src: "foto/kachna.jpg", w: 2000, h: 1333 },
+  { t: "Podzim v Mníšku pod Brdy I", c: "priroda", src: "foto/podzim-mnisek-1.jpg", w: 1200, h: 800 },
+  { t: "Podzim v Mníšku pod Brdy II", c: "priroda", src: "foto/podzim-mnisek-2.jpg", w: 1200, h: 800 },
   { t: "Koniklec", c: "priroda", src: "foto/koniklec.jpg", w: 2000, h: 1333 },
+  { t: "Koniklec II", c: "priroda", src: "foto/koniklec-2.jpg", w: 1500, h: 2000 },
   { t: "Modřenec", c: "priroda", src: "foto/modrinec.jpg", w: 1600, h: 1067 },
   { t: "Jabloňový květ", c: "priroda", src: "foto/jablonovy-kvet.jpg", w: 2000, h: 1333 },
+  { t: "Obilí", c: "priroda", src: "foto/jecmenne-pole.jpg", w: 1200, h: 1600 },
   { t: "Chorvatsko, Cavtat", c: "krajina", src: "foto/zapad-slunce-nad-morem.jpg", w: 2000, h: 1333 },
   { t: "Soukeník", c: "krajina", src: "foto/soukenik.jpg", w: 2000, h: 1334 },
   { t: "Pláž v Malii", c: "krajina", src: "foto/plaz-v-malii.jpg", w: 2000, h: 1500 },
-  { t: "Prvić", c: "krajina", src: "foto/prvic.jpg", w: 2000, h: 1333 },
+  { t: "Prvić I", c: "krajina", src: "foto/prvic.jpg", w: 2000, h: 1333 },
+  { t: "Prvić II", c: "krajina", src: "foto/pohled-na-prvic.jpg", w: 1600, h: 1067 },
+  { t: "Lávka v Roudné", c: "krajina", src: "foto/lavka-v-roudne.jpg", w: 2000, h: 1333 },
   { t: "San Francesco", c: "krajina", src: "foto/san-francesco.jpg", w: 1600, h: 1200 },
   { t: "Pelješac", c: "krajina", src: "foto/peljesac.jpg", w: 2000, h: 1333 },
+  { t: "Z Korčuly", c: "doprava", src: "foto/z-milny-to-neni.jpg", w: 2000, h: 1333 },
   { t: "Nad Černovicemi", c: "krajina", src: "foto/nad-cernovicemi.jpg", w: 2000, h: 1333 },
-  { t: "Vrchní Orlice", c: "kostely", src: "foto/kostel-nad-mlhou.jpg", w: 2000, h: 1333 },
-  { t: "Krteň", c: "kostely", src: "foto/vez-za-jinovatkou.jpg", w: 1333, h: 2000 },
+  { t: "Na břehu Innu I", c: "krajina", src: "foto/na-brehu-innu-1.jpg", w: 2000, h: 1125 },
+  { t: "Na břehu Innu II", c: "krajina", src: "foto/na-brehu-innu-2.jpg", w: 2000, h: 1125 },
+  { t: "Velká Amerika", c: "krajina", src: "foto/nad-lomem-velka-amerika.jpg", w: 1600, h: 1067 },
+  { t: "Od Žirovnice", c: "krajina", src: "foto/od-zirovnice.jpg", w: 1468, h: 979 },
+  { t: "Borotín", c: "krajina", src: "foto/borotin.jpg", w: 2000, h: 1333 },
+  { t: "U chaty Prdek", c: "krajina", src: "foto/u-chaty-prdek.jpg", w: 2000, h: 1333 },
+  { t: "Paseky nad Jizerou", c: "krajina", src: "foto/paseky-nad-jizerou.jpg", w: 2000, h: 1333 },
+  { t: "Pláž u Soči", c: "krajina", src: "foto/plaz-u-soci.jpg", w: 2000, h: 1333 },
+  { t: "Brzkov", c: "krajina", src: "foto/brzkov.jpg", w: 2000, h: 1333 },
+  { t: "Cestou na Mljet", c: "krajina", src: "foto/cesto-na-mljet.jpg", w: 1600, h: 1067 },
+  { t: "Cestou z Jelsy do Bolu", c: "krajina", src: "foto/korcula.jpg", w: 2000, h: 1333 },
+  { t: "Z Vidovy hory", c: "krajina", src: "foto/z-vidovy-hory.jpg", w: 2000, h: 1125 },
+  { t: "Z Postiry", c: "krajina", src: "foto/z-postiry.jpg", w: 2000, h: 1333 },
+  { t: "Stončica", c: "krajina", src: "foto/stoncica.jpg", w: 2000, h: 1333 },
+  { t: "Vyhlídka na Gargano", c: "krajina", src: "foto/vyhlidka-na-gargano.jpg", w: 2000, h: 1333 },
+  { t: "Maják v Postiře", c: "krajina", src: "foto/majak.jpg", w: 2000, h: 1333 },
+  { t: "Blidinje", c: "krajina", src: "foto/blidinje.jpg", w: 2000, h: 1327 },
+  { t: "Skala Rachoni", c: "krajina", src: "foto/skala-rachoni.jpg", w: 2000, h: 1333 },
+  { t: "Le Secche", c: "krajina", src: "foto/le-secche.jpg", w: 2000, h: 1333 },
+  { t: "Neratov I", c: "kostely", src: "foto/neratov-2.jpg", w: 1600, h: 1066 },
+  { t: "Neratov II", c: "kostely", src: "foto/neratov-1.jpg", w: 1600, h: 1067 },
+  { t: "Vrchní Orlice I", c: "kostely", src: "foto/kostel-nad-mlhou.jpg", w: 2000, h: 1333 },
+  { t: "Vrchní Orlice II", c: "kostely", src: "foto/vrchni-orlice-2.jpg", w: 1600, h: 1066 },
+  { t: "Vrchní Orlice III", c: "kostely", src: "foto/vrchni-orlice-3.jpg", w: 2000, h: 1333 },
+  { t: "Vrchní Orlice IV", c: "kostely", src: "foto/vrchni-orlice-4.jpg", w: 2000, h: 1333 },
+  { t: "Bartošovice I", c: "kostely", src: "foto/bartosovice-1.jpg", w: 1067, h: 1600 },
+  { t: "Bartošovice II", c: "kostely", src: "foto/bartosovice-2.jpg", w: 1600, h: 1067 },
+  { t: "Bartošovice III", c: "kostely", src: "foto/bartosovice-3.jpg", w: 1600, h: 1067 },
+  { t: "Bartošovice IV", c: "kostely", src: "foto/bartosovice-4.jpg", w: 1600, h: 1067 },
+  { t: "Bartošovice V", c: "kostely", src: "foto/bartosovice-5.jpg", w: 2000, h: 1333 },
+  { t: "Zelená hora", c: "kostely", src: "foto/zelena-hora.jpg", w: 2000, h: 1333 },
   { t: "Břevnovský klášter, Vojtěška", c: "kostely", src: "foto/zimni-podvecer.jpg", w: 2000, h: 1333 },
-  { t: "Pohled z Mont Vallon", c: "hory", src: "foto/hory-01.jpg", w: 2000, h: 1333 },
+  { t: "Krteň", c: "kostely", src: "foto/vez-za-jinovatkou.jpg", w: 1333, h: 2000 },
+  { t: "Sagrada Familia", c: "kostely", src: "foto/sagrada-familia.jpg", w: 1600, h: 1067 },
+  { t: "Barcelona, Santa Maria del Mar", c: "kostely mesta barcelona", src: "foto/santa-maria-del-mar.jpg", w: 1600, h: 1067 },
+  { t: "Zvonička u Marunov", c: "kostely", src: "foto/zvonicka-u-marunov-2.jpg", w: 2000, h: 1333 },
   { t: "Pohled z Cime de Caron", c: "hory", src: "foto/hory-02.jpg", w: 2000, h: 1333 },
   { t: "Torri del Sella", c: "hory", src: "foto/hory-03.jpg", w: 2000, h: 1333 },
   { t: "Gruppo Sella", c: "hory", src: "foto/hory-07.jpg", w: 2000, h: 1333 },
-  { t: "Pohled do čtvrtého údolí", c: "hory", src: "foto/hory-08.jpg", w: 2000, h: 1333 },
+  { t: "Les Trois Vallées, pohled do čtvrtého údolí", c: "hory", src: "foto/hory-08.jpg", w: 2000, h: 1333 },
   { t: "Aiguilles d'Arves", c: "hory", src: "foto/hory-13.jpg", w: 1067, h: 1600 },
   { t: "Piz Ciavazes", c: "hory", src: "foto/hory-14.jpg", w: 1067, h: 1600 },
+  { t: "Kopečky", c: "hory", src: "foto/kopecky.jpg", w: 2000, h: 1333 },
+  { t: "Aiguille du Fruit", c: "hory", src: "foto/aiguille-du-fruit.jpg", w: 2000, h: 1333 },
+  { t: "Cestou na Chleb I", c: "hory", src: "foto/cestou-na-chleb-1.jpg", w: 2000, h: 1333 },
+  { t: "Cestou na Chleb II", c: "hory", src: "foto/cestou-na-chleb-2.jpg", w: 2000, h: 1333 },
+  { t: "Z Chlebu", c: "hory", src: "foto/z-chlebu.jpg", w: 1000, h: 667 },
+  { t: "Nad Cavtatem", c: "hory", src: "foto/nad-cavtatem.jpg", w: 2000, h: 1333 },
+  { t: "Koně z Adamella", c: "hory", src: "foto/kone-z-adamella.jpg", w: 2000, h: 1329 },
+  { t: "Matterhorn", c: "hory", src: "foto/matterhorn.jpg", w: 1500, h: 2000 },
+  { t: "Bojinac", c: "hory", src: "foto/bojinac.jpg", w: 2000, h: 1500 },
+  { t: "Pod Dvoračkami", c: "hory", src: "foto/stopy-ve-snehu.jpg", w: 1200, h: 1600 },
+  { t: "Pod Velkou Deštnou", c: "hory", src: "foto/pod-velkou-destnou.jpg", w: 2000, h: 1333 },
+  { t: "Šumava Javorník", c: "hory", src: "foto/sumava-javornik.jpg", w: 2000, h: 1333 },
+  { t: "U Gornje Igrane", c: "hory", src: "foto/u-gornje-igrane.jpg", w: 2000, h: 1333 },
+  { t: "Maly Staw", c: "hory", src: "foto/maly-staw.jpg", w: 2000, h: 1333 },
+  { t: "Planina Nida", c: "hory", src: "foto/planina-nida.jpg", w: 2000, h: 1333 },
+  { t: "Na Velký Rozsutec", c: "hory", src: "foto/na-velky-rozsutec.jpg", w: 1500, h: 2000 },
+  { t: "Ze Starhradu", c: "hory", src: "foto/ze-starhradu.jpg", w: 2000, h: 1500 },
+  { t: "U Riva del Garda", c: "hory", src: "foto/u-riva-del-garda.jpg", w: 1334, h: 2000 },
 ];
 
 // galerie
@@ -364,11 +541,11 @@ PHOTOS.forEach((p, i) => {
   const fig = document.createElement("figure");
   fig.className = "shot"; fig.dataset.c = p.c || "";
   const btn = document.createElement("button");
-  btn.type = "button"; btn.setAttribute("aria-label", "Zvětšit snímek: " + p.t);
+  btn.type = "button";
   const img = document.createElement("img");
   img.src = p.src; img.alt = p.t; img.width = p.w; img.height = p.h; img.loading = "lazy"; img.decoding = "async";
   btn.appendChild(img); fig.appendChild(btn);
-  fig.insertAdjacentHTML("beforeend", `<figcaption><h3>${p.t}</h3></figcaption>`);
+  fig.insertAdjacentHTML("beforeend", `<figcaption><h3></h3></figcaption>`);
   btn.addEventListener("click", () => openLb(i));
   fig.hidden = true;
   grid.appendChild(fig);
@@ -388,6 +565,23 @@ function match(c, f, sub) {
   if (f === "mesta" && sub) return sub === "ostatni" ? !c.includes("praha") && !c.includes("barcelona") : c.includes(sub);
   return true;
 }
+// sloupce (Ženy): každá další fotka jde do nejkratšího sloupce, pořadí shora dolů zůstane zachované
+function layoutTwo() {
+  const shots = [...grid.querySelectorAll(".shot")];
+  shots.forEach(s => { s.style.gridColumn = ""; s.style.gridRow = ""; });
+  if (!grid.classList.contains("two")) return;
+  const w = grid.clientWidth, n = w >= 900 ? 3 : (w >= 600 ? 2 : 1);
+  grid.style.setProperty("--cols", n);
+  const ROW = 2, GAP = 26, h = new Array(n).fill(0);
+  shots.filter(s => !s.hidden).forEach(s => {
+    const c = h.indexOf(Math.min(...h));
+    s.style.gridColumn = String(c + 1);
+    const span = Math.ceil((s.getBoundingClientRect().height + GAP) / ROW);
+    s.style.gridRow = (h[c] + 1) + " / span " + span;
+    h[c] += span;
+  });
+}
+addEventListener("resize", () => layoutTwo());
 function applyFilter() {
   let n = 0;
   document.querySelectorAll(".shot").forEach(s => { s.hidden = !match(cats(s), curF, curSub); if (!s.hidden) n++; });
@@ -395,11 +589,13 @@ function applyFilter() {
   document.getElementById("empty").hidden = !curF || needSub || n > 0;
   const hint = document.getElementById("hint");
   hint.hidden = !!curF && !needSub;
-  hint.textContent = needSub ? "Vyberte Prahu, Barcelonu nebo Ostatní a zobrazí se fotky." : "Vyberte kategorii a zobrazí se fotky.";
+  hint.textContent = needSub ? T[lang].hintCity : T[lang].hint;
   subMesta.hidden = curF !== "mesta";
+  grid.classList.toggle("two", curF === "zeny" || curF === "kostely");
+  layoutTwo();
   sBtns.forEach(x => x.setAttribute("aria-pressed", x.dataset.sf === curSub));
   // když jsou zobrazené fotky, sekce O mně se pod nimi neukazuje
-  document.getElementById("o-mne").hidden = n > 0 || window.jenGalerie === true;
+  document.getElementById("o-mne").hidden = n > 0 || !!curF || window.jenGalerie === true;
 }
 // druhé klepnutí na aktivní kategorii fotky zase skryje
 fBtns.forEach(b => b.addEventListener("click", () => {
@@ -420,8 +616,8 @@ let cur = 0;
 function visibleIdx() { return [...document.querySelectorAll(".shot")].map((s, i) => s.hidden ? -1 : i).filter(i => i >= 0); }
 function showLb(i) {
   cur = i; const p = PHOTOS[i];
-  lbImg.src = p.src; lbImg.alt = p.t;
-  document.getElementById("lbTitle").textContent = p.t;
+  lbImg.src = p.src; lbImg.alt = title(p);
+  document.getElementById("lbTitle").textContent = title(p);
 }
 function openLb(i) { showLb(i); if (typeof lb.showModal === "function") lb.showModal(); else lb.setAttribute("open", ""); }
 function step(d) { const v = visibleIdx(); const k = v.indexOf(cur); showLb(v[(k + d + v.length) % v.length]); }
@@ -434,8 +630,51 @@ document.addEventListener("keydown", e => { if (!lb.open) return; if (e.key === 
 // kopírování e-mailu
 // menu: Galerie skryje sekci O mně, O mně skryje galerii
 const omne = document.getElementById("o-mne"), gal = document.getElementById("galerie");
-document.querySelector('.top nav a[href="#galerie"]').addEventListener("click", () => { window.jenGalerie = true; omne.hidden = true; gal.hidden = false; });
-document.querySelector('.top nav a[href="#o-mne"]').addEventListener("click", () => { window.jenGalerie = false; gal.hidden = true; omne.hidden = false; });
+const uvod = document.getElementById("uvod");
+// odkazy v menu nemění adresu (#), takže po obnovení stránky se web otevře na titulní straně
+document.querySelector('.top nav a[href="#galerie"]').addEventListener("click", e => { e.preventDefault(); window.jenGalerie = true; uvod.hidden = true; omne.hidden = true; gal.hidden = false; scrollTo(0, 0); });
+document.querySelector('.top nav a[href="#o-mne"]').addEventListener("click", e => { e.preventDefault(); window.jenGalerie = false; uvod.hidden = true; gal.hidden = true; omne.hidden = false; scrollTo(0, 0); });
+try { if ("scrollRestoration" in history) history.scrollRestoration = "manual"; } catch (e) {}
+scrollTo(0, 0);
+addEventListener("load", () => scrollTo(0, 0));
+// logo vrátí úvodní stranu se vším
+document.querySelector('.brand').addEventListener("click", e => { e.preventDefault(); window.jenGalerie = false; uvod.hidden = false; gal.hidden = false; applyFilter(); scrollTo(0, 0); });
+function setLang(l) {
+  lang = l;
+  try { localStorage.setItem("lang", l); } catch (e) {}
+  document.documentElement.lang = l;
+  const D = T[l];
+  document.querySelectorAll("[data-i18n]").forEach(el => { const v = D[el.dataset.i18n]; if (v != null) el.innerHTML = v; });
+  document.querySelectorAll("[data-i18n-aria]").forEach(el => { const v = D[el.dataset.i18nAria]; if (v != null) el.setAttribute("aria-label", v); });
+  const b = document.getElementById("langBtn"); b.textContent = D.btn; b.setAttribute("aria-label", D.btnAria);
+  document.getElementById("lb").setAttribute("aria-label", D.dlg);
+  document.querySelector(".brand").setAttribute("aria-label", D.brand);
+  document.querySelectorAll(".shot").forEach((fig, i) => {
+    const p = PHOTOS[i], t = title(p);
+    fig.querySelector("h3").textContent = t;
+    fig.querySelector("img").alt = t;
+    fig.querySelector("button").setAttribute("aria-label", D.enlarge + t);
+  });
+  if (lb.open) showLb(cur);
+  applyFilter();
+  fitBlok();
+}
+document.getElementById("langBtn").addEventListener("click", () => setLang(lang === "cs" ? "en" : "cs"));
+setLang(lang);
+// úvodní video: přehraje se třikrát a zastaví se na posledním snímku
+try {
+  const hv = document.getElementById("heroVideo");
+  let plays = 0;
+  const start = () => { const pr = hv.play(); if (pr && pr.catch) pr.catch(() => {}); };
+  const showPhoto = () => {
+    const img = new Image();
+    img.src = "foto/karluv-most-rano.jpg"; img.width = 1067; img.height = 1600;
+    img.alt = hv.getAttribute("aria-label") || "";
+    img.onload = () => hv.replaceWith(img);
+  };
+  hv.addEventListener("ended", () => { plays++; if (plays < 3) { hv.currentTime = 0; start(); } else showPhoto(); });
+  if (!matchMedia("(prefers-reduced-motion: reduce)").matches) start();
+} catch (e) {}
 </script>
 
 </body>
