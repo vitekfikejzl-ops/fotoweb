@@ -141,9 +141,7 @@ dialog img { display: block; width: auto; height: auto; max-width: min(1100px, 9
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 
-</head>
-<body>
-<div class="wrap">
+</head><body><div class="wrap">
   <header class="top">
     <a class="brand" href="#" aria-label="Vít Fikejzl, na začátek stránky"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="48" height="48" aria-hidden="true"><polygon points="11.5,42 11.5,11.5 42,11.5 42,16.5 16.5,16.5 16.5,42" fill="#1D1F22"/><polygon points="188.5,42 188.5,11.5 158,11.5 158,16.5 183.5,16.5 183.5,42" fill="#1D1F22"/><polygon points="11.5,158 11.5,188.5 42,188.5 42,183.5 16.5,183.5 16.5,158" fill="#1D1F22"/><polygon points="188.5,158 188.5,188.5 158,188.5 158,183.5 183.5,183.5 183.5,158" fill="#1D1F22"/><polygon points="33.93,50 50.11,50 93,123.97 93,50 107,50 107,157 95.96,157" fill="#1D1F22"/><polygon points="93,50 160.1,50 152,64 93,64" fill="#1D1F22"/><polygon points="93,93 138.1,93 130,107 93,107" fill="#1D1F22"/><circle cx="150" cy="150" r="7" fill="#D9402B"/></svg></a>
     <nav aria-label="Hlavní">
@@ -176,7 +174,7 @@ dialog img { display: block; width: auto; height: auto; max-width: min(1100px, 9
         <button type="button" data-f="lide" data-i18n="f_lide" aria-pressed="false">Lidé</button>
         <button type="button" data-f="kostely" data-i18n="f_kostely" aria-pressed="false">Kostely</button>
         <button type="button" data-f="zeny" data-i18n="f_zeny" aria-pressed="false">Ženy</button>
-        <button type="button" data-f="nezarazeno" data-i18n="f_nezarazeno" aria-pressed="false">Nezařazeno</button>
+        <button type="button" data-f="nezarazeno" data-i18n="f_nezarazeno" aria-pressed="false">Zátiší</button>
       </div>
     </div>
     <div class="filters subfilters" id="subMesta" role="group" aria-label="Města" hidden>
@@ -242,8 +240,8 @@ dialog img { display: block; width: auto; height: auto; max-width: min(1100px, 9
 
 <script>
 // ===== jazyk (CZ / EN) =====
-const TITLE_EN = {"Sluneční metař": "Sun Sweeper", "Letíme do mlhy": "Flying into the Fog", "Náplavka": "Riverbank", "Obilí": "Grain", "Z železničního hřbitova": "From the Railway Graveyard", "Červená": "Red", "Skleničky": "Glasses", "Dívka z Boquerie": "Girl from La Boqueria", "Maják v Sučuraji": "Lighthouse in Sućuraj", "Benátky, z kampanily svatého Marka": "Venice, from St Mark's Campanile", "Benátky": "Venice", "Jindřichův Hradec, zámek": "Jindřichův Hradec, Château", "Ze Štvanice": "From Štvanice Island", "Tulipán": "Tulip", "Tulipán II": "Tulip II", "Křivky": "Curves", "Slamák I": "Straw Hat I", "Zátiší s berlemi I": "Still Life with Crutches I", "Zátiší s berlemi II": "Still Life with Crutches II", "Nad Strážným": "Above Strážný", "Cestou na Chleb I": "On the Way to Chleb I", "Cestou na Chleb II": "On the Way to Chleb II", "Cestou na Chleb III": "On the Way to Chleb III", "Z Chlebu": "From Chleb", "Dívka s bublifukem": "Girl with Soap Bubbles", "Pohled z Watles": "View from Watles", "Praha - hlavní nádraží": "Prague – Main Station", "Čáp": "The Stork", "Vůz vlakové pošty": "Railway Post Car", "V Motolském ordoviku": "In the Motol Ordovician", "La Pedrera, na střeše": "La Pedrera, on the Roof", "La Pedrera, nádvoří": "La Pedrera, Courtyard", "Z Tibidaba": "From Tibidabo", "Masopust v Hlubočepích I": "Carnival in Hlubočepy I", "Masopust v Hlubočepích II": "Carnival in Hlubočepy II", "Masopust v Hlubočepích III": "Carnival in Hlubočepy III", "Masopust v Hlubočepích IV": "Carnival in Hlubočepy IV", "Masopust v Roztokách": "Carnival in Roztoky", "Stěhování pošty Praha 120 I": "Moving the Prague 120 Post Office I", "Stěhování pošty Praha 120 II": "Moving the Prague 120 Post Office II", "Zbrojnoš": "Squire", "Z Vodičkovy ulice": "From Vodičkova Street", "Miminka": "Babies", "Kafkova hlava": "Kafka's Head", "Lennonova zeď": "Lennon Wall", "Na procházce": "Out for a Walk", "Ze severní věže hlavního nádraží": "From the North Tower of the Main Station", "Petrské náměstí": "Petrské Square", "Masaryčka": "Masaryk Station", "Mateřská škola Kostelní": "Kostelní Street Nursery", "Z Velké strahovské zahrady I": "From the Great Strahov Garden I", "Františkánská zahrada": "Franciscan Garden", "Pražský čas I": "Prague Time I", "Pražský čas II": "Prague Time II", "Pražský čas III": "Prague Time III", "Pražský čas IV": "Prague Time IV", "Racci": "Gulls", "Dohráno": "Final Notes", "Brambůrky": "Crisps", "Tance I": "Dances I", "Tance II": "Dances II", "Po schodech": "Down the Stairs", "Trojčata na útěku": "Triplets on the Run", "Zvoníci ve svatém Vítu I": "Bell Ringers of St Vitus I", "Zvoníci ve svatém Vítu II": "Bell Ringers of St Vitus II", "Z mníšecké poutě I": "From the Mníšek Fair I", "Z mníšecké poutě II": "From the Mníšek Fair II", "Z Velké kunratické": "From Velká Kunratická", "Sukně": "Skirt", "Maja II": "Maja II", "Co je tam dole": "What's Down There", "U dubu": "By the Oak", "Od Kežmaroku": "From Kežmarok", "Kamenožrout": "Stone Eater", "Panský hříbek": "Bay Bolete", "Hřib v trávě I": "Bolete in the Grass I", "Okolo Třeboně": "Around Třeboň", "Blatná, zámek": "Blatná, Château", "Šumava, Roklanský potok": "Šumava, Roklanský Brook", "Zelená řeka": "Green River", "U Řeporyjí": "Near Řeporyje", "Hlubočepské jezírko": "Hlubočepy Pond", "Jaro u rybníka": "Spring by the Pond", "Nad Koněprusy": "Above Koněprusy", "U Zálší": "Near Zálší", "Ze zahrady Břevnovského kláštera": "From the Garden of Břevnov Monastery", "U Svaté Anny": "By St Anne's", "Nad Sezimovým Ústím": "Above Sezimovo Ústí", "Vlčí máky": "Poppies", "Nevěsta a ženich": "Bride and Groom", "U Hájů": "Near Háje", "Na Hamerském potoce": "On Hamerský Brook", "Přišlo jaro": "Spring Has Come", "Podzim v Mníšku pod Brdy I": "Autumn in Mníšek pod Brdy I", "Podzim v Mníšku pod Brdy II": "Autumn in Mníšek pod Brdy II", "Koniklec": "Pasqueflower", "Modřenec": "Grape Hyacinth", "Jabloňový květ": "Apple Blossom", "Chorvatsko, Cavtat": "Croatia, Cavtat", "Pláž v Malii": "Beach in Malia", "Nad Černovicemi": "Above Černovice", "Na břehu Innu I": "On the Banks of the Inn I", "Na břehu Innu II": "On the Banks of the Inn II", "Od Žirovnice": "From Žirovnice", "Cestou na Mljet": "On the Way to Mljet", "Vyhlídka na Gargano": "View of Gargano", "Maják v Postiře": "Lighthouse in Postira", "Břevnovský klášter, Vojtěška": "Břevnov Monastery, Vojtěška", "Zvonička u Marunov": "Bell Tower near Marunov", "Pohled z Cime de Caron": "View from Cime de Caron", "Les Trois Vallées, pohled do čtvrtého údolí": "Les Trois Vallées, View into the Fourth Valley", "Kopečky": "Little Hills", "Tramvaj": "Tram", "Křeslo pro hosta": "A Chair for the Guest", "Slamák II": "Straw Hat II", "Dvorecký most": "Dvorecký Bridge", "Planina Nida": "Nida Plateau", "Zvoníci ve svatém Vítu III": "Bell Ringers of St Vitus III", "Zvoníci ve svatém Vítu IV": "Bell Ringers of St Vitus IV", "Z Bašky": "From Baška", "Prvić II": "Prvić II", "Lávka v Roudné": "Footbridge in Roudná", "Z Velké strahovské zahrady II": "From the Great Strahov Garden II", "Kachna I": "Duck I", "Kachna II": "Duck II", "Muchomůrka": "Fly Agaric", "Pod Velkou Deštnou": "Below Velká Deštná", "Na Velký Rozsutec": "On the Way up Veľký Rozsutec", "Ze Starhradu": "From Starhrad", "U Riva del Garda": "Near Riva del Garda", "Nad Cavtatem": "Above Cavtat", "Šumava Javorník": "Šumava, Javorník", "Koně z Adamella": "Horses of Adamello", "U Gornje Igrane": "Near Gornja Igrane", "Pod Dvoračkami": "Below Dvoračky", "Kostelník": "The Sexton", "Pláž u Soči": "Beach on the Soča", "U chaty Prdek": "Near the Prdek Cottage", "Hřib v trávě II": "Bolete in the Grass II", "Hrad, Španělský sál": "Prague Castle, Spanish Hall", "Hrad, Široká chodba": "Prague Castle, The Wide Corridor", "Koniklec II": "Pasqueflower II", "Zelená hora": "Zelená Hora", "Zvonička u Marunov II": "Bell Tower near Marunov II", "Cestou z Jelsy do Bolu": "On the Way from Jelsa to Bol", "Z Vidovy hory": "From Vidova Gora", "Z Postiry": "From Postira", "Berlín": "Berlin", "Denisa a Dufík I": "Denisa and Dufík I", "Denisa a Dufík II": "Denisa and Dufík II", "Pod Zličínem": "Below Zličín", "Nadějná strojvůdkyně": "Promising Train Driver", "Šlechtična": "The Noblewoman", "Od Žlutých lázní": "From Žluté lázně", "Z Korčuly": "From Korčula"};
-const T = { cs: {"hint": "Vyberte kategorii a zobrazí se fotky.", "hintCity": "Vyberte Prahu, Barcelonu nebo Ostatní a zobrazí se fotky.", "enlarge": "Zvětšit snímek: ", "btn": "EN", "btnAria": "Switch to English", "dlg": "Náhled snímku", "brand": "Vít Fikejzl, na začátek stránky"}, en: {"navGal": "Gallery", "navAbout": "About", "sub1": "An Old Photographer with <span>Promise</span>", "sub2": "An Old Photographer with <span style=\"color:var(--sun)\">Promise</span>", "galH": "Gallery", "f_krajina": "Landscape", "f_hory": "Mountains", "f_mesta": "Cities", "f_priroda": "Nature", "f_doprava": "Transport", "f_lide": "People", "f_kostely": "Churches", "f_zeny": "Women", "f_nezarazeno": "Uncategorised", "sf_praha": "Prague", "sf_barcelona": "Barcelona", "sf_ostatni": "Other", "empty": "There are no photos in this category yet.", "contact": "Contact", "aboutLabel": "About me", "aboutText": "\n          <p>The Latin root of my first name, <i>Vitus</i>, means lively, joyful, and full of life. That may explain why photography has always been, above all, a source of joy for me. Now that I’ve passed sixty, I have decided to describe myself as an old photographer with promise.</p>\n          <p>The world is colourful, so I usually photograph it in colour. Black and white are colours too, which is why I also enjoy black-and-white photography. Every now and then, I venture somewhere in between.</p>\n          <p>I have never been one for sitting on the fence. I’d much rather be up in the mountains. Still, I can photograph perfectly flat landscapes when the occasion demands.</p>\n          <p>I brighten up my daily commute by photographing Prague. My employer makes this easy by being conveniently located in the city centre. From there, I can choose my route according to whim, radiating out in all directions like the points of a star.</p>\n          <p>Once, I won the Other category in an astronomy photography competition, despite the fact that my picture contained not a single star. My photographs of Prague have earned me a few certificates and awards as well. They currently reside in a drawer, where all truly important honours belong.</p>\n          <p>Outside Prague, I enjoy cycling. The riders behind me tend to keep a healthy distance because they know I may hit the brakes without warning the moment something catches my photographic eye.</p>\n          <p>Occasionally, I complement a landscape with a young lady. Summer can be hot, and when the temperature rises, I sometimes find myself with no alternative but to photograph her exactly as nature and the weather intended.</p>\n          <p>My photography alternates between minimalist and maximalist approaches. It seems a pity to own a camera capable of capturing millions of pixels and then not let them fulfil their destiny. So at least a few times each year, I make a determined effort to ensure that the maximum possible number of pixels gets an opportunity to shine in every colour imaginable.</p>\n", "close": "Close", "prev": "Previous", "next": "Next", "hint": "Choose a category to see the photos.", "hintCity": "Choose Prague, Barcelona or Other to see the photos.", "enlarge": "Enlarge photo: ", "btn": "CZ", "btnAria": "Přepnout do češtiny", "dlg": "Photo preview", "brand": "Vít Fikejzl, back to the start"} };
+const TITLE_EN = {"Sluneční metař": "Sun Sweeper", "Letíme do mlhy": "Flying into the Fog", "Náplavka": "Riverbank", "Obilí": "Grain", "Z železničního hřbitova": "From the Railway Graveyard", "Červená": "Red", "Skleničky": "Glasses", "Dívka z Boquerie": "Girl from La Boqueria", "Maják v Sučuraji": "Lighthouse in Sućuraj", "Benátky, z kampanily svatého Marka": "Venice, from St Mark's Campanile", "Benátky I": "Venice I", "Jindřichův Hradec, zámek": "Jindřichův Hradec, Château", "Ze Štvanice": "From Štvanice Island", "Tulipán": "Tulip", "Slamák I": "Straw Hat I", "Zátiší s berlemi I": "Still Life with Crutches I", "Zátiší s berlemi II": "Still Life with Crutches II", "Nad Strážným": "Above Strážný", "Cestou na Chleb I": "On the Way to Chleb I", "Cestou na Chleb II": "On the Way to Chleb II", "Cestou na Chleb III": "On the Way to Chleb III", "Z Chlebu": "From Chleb", "Dívka s bublifukem": "Girl with Soap Bubbles", "Pohled z Watles": "View from Watles", "Praha - hlavní nádraží": "Prague – Main Station", "Čáp": "The Stork", "Vůz vlakové pošty I": "Railway Post Car I", "V Motolském ordoviku": "In the Motol Ordovician", "La Pedrera, na střeše I": "La Pedrera, on the Roof I", "La Pedrera, nádvoří": "La Pedrera, Courtyard", "Z Tibidaba I": "From Tibidabo I", "Masopust v Hlubočepích I": "Carnival in Hlubočepy I", "Masopust v Hlubočepích II": "Carnival in Hlubočepy II", "Masopust v Hlubočepích III": "Carnival in Hlubočepy III", "Masopust v Hlubočepích IV": "Carnival in Hlubočepy IV", "Masopust v Roztokách": "Carnival in Roztoky", "Stěhování pošty Praha 120 I": "Moving the Prague 120 Post Office I", "Stěhování pošty Praha 120 II": "Moving the Prague 120 Post Office II", "Zbrojnoš": "Squire", "Z Vodičkovy ulice": "From Vodičkova Street", "Miminka": "Babies", "Kafkova hlava": "Kafka's Head", "Lennonova zeď": "Lennon Wall", "Na procházce": "Out for a Walk", "Ze severní věže hlavního nádraží": "From the North Tower of the Main Station", "Petrské náměstí": "Petrské Square", "Masaryčka": "Masaryk Station", "Mateřská škola Kostelní": "Kostelní Street Nursery", "Z Velké strahovské zahrady I": "From the Great Strahov Garden I", "Františkánská zahrada": "Franciscan Garden", "Pražský čas I": "Prague Time I", "Pražský čas II": "Prague Time II", "Pražský čas III": "Prague Time III", "Pražský čas IV": "Prague Time IV", "Racci": "Gulls", "Dohráno": "Final Notes", "Brambůrky": "Crisps", "Tance I": "Dances I", "Tance II": "Dances II", "Po schodech": "Down the Stairs", "Trojčata na útěku": "Triplets on the Run", "Zvoníci ve svatém Vítu I": "Bell Ringers of St Vitus I", "Zvoníci ve svatém Vítu II": "Bell Ringers of St Vitus II", "Z mníšecké poutě I": "From the Mníšek Fair I", "Z mníšecké poutě II": "From the Mníšek Fair II", "Z Velké kunratické": "From Velká Kunratická", "Sukně": "Skirt", "Maja II": "Maja II", "Co je tam dole": "What's Down There", "U dubu": "By the Oak", "Od Kežmaroku": "From Kežmarok", "Kamenožrout": "Stone Eater", "Panský hříbek": "Bay Bolete", "Hřib v trávě": "Bolete in the Grass", "Okolo Třeboně": "Around Třeboň", "Blatná, zámek": "Blatná, Château", "Šumava, Roklanský potok": "Šumava, Roklanský Brook", "Zelená řeka": "Green River", "U Řeporyjí": "Near Řeporyje", "Hlubočepské jezírko": "Hlubočepy Pond", "Jaro u rybníka": "Spring by the Pond", "Nad Koněprusy": "Above Koněprusy", "U Zálší": "Near Zálší", "Ze zahrady Břevnovského kláštera": "From the Garden of Břevnov Monastery", "U Svaté Anny": "By St Anne's", "Nad Sezimovým Ústím": "Above Sezimovo Ústí", "Vlčí máky": "Poppies", "Nevěsta a ženich": "Bride and Groom", "U Hájů": "Near Háje", "Na Hamerském potoce": "On Hamerský Brook", "Přišlo jaro": "Spring Has Come", "Podzim v Mníšku pod Brdy I": "Autumn in Mníšek pod Brdy I", "Podzim v Mníšku pod Brdy II": "Autumn in Mníšek pod Brdy II", "Koniklec": "Pasqueflower", "Modřenec": "Grape Hyacinth", "Jabloňový květ": "Apple Blossom", "Chorvatsko, Cavtat": "Croatia, Cavtat", "Pláž v Malii": "Beach in Malia", "Nad Černovicemi": "Above Černovice", "Na břehu Innu I": "On the Banks of the Inn I", "Na břehu Innu II": "On the Banks of the Inn II", "Od Žirovnice": "From Žirovnice", "Cestou na Mljet": "On the Way to Mljet", "Vyhlídka na Gargano": "View of Gargano", "Maják v Postiře": "Lighthouse in Postira", "Břevnovský klášter, Vojtěška": "Břevnov Monastery, Vojtěška", "Zvonička u Marunov": "Bell Tower near Marunov", "Pohled z Cime de Caron": "View from Cime de Caron", "Les Trois Vallées, pohled do čtvrtého údolí": "Les Trois Vallées, View into the Fourth Valley", "Kopečky": "Little Hills", "Tramvaj II": "Tram II", "Lampa": "Lamp", "Surikaty": "Meerkats", "Vůz vlakové pošty": "Railway Post Car", "Z Tibidaba": "From Tibidabo", "U Brzkova": "Near Brzkov", "Zelená a modrá": "Green and Blue", "U Roškopova": "Near Roškopov", "Stíny nad Seinou": "Shadows over the Seine", "Stříbrná Vltava": "Silver Vltava", "Před výlovem": "Before the Pond Harvest", "Tramvaj I": "Tram I", "Kráska": "Beauty", "Kozák": "Birch Bolete", "Krasojezdkyně": "Trick Cyclist", "V bodláčí": "Among the Thistles", "Hřib": "Bolete", "Benátky II": "Venice II", "La Pedrera, na střeše II": "La Pedrera, on the Roof II", "Neznámá": "The Unknown", "Vlny": "Waves", "Z Malie I": "From Malia I", "Z Malie II": "From Malia II", "Ze Zbraslavi": "From Zbraslav", "Jehličí": "Needles", "Magičtí ptáčci": "Magic Birds", "Loďky": "Boats", "Křeslo pro hosta": "A Chair for the Guest", "Slamák II": "Straw Hat II", "Dvorecký most": "Dvorecký Bridge", "Planina Nida": "Nida Plateau", "Zvoníci ve svatém Vítu III": "Bell Ringers of St Vitus III", "Zvoníci ve svatém Vítu IV": "Bell Ringers of St Vitus IV", "Z Bašky": "From Baška", "Prvić II": "Prvić II", "Lávka v Roudné": "Footbridge in Roudná", "Z Velké strahovské zahrady II": "From the Great Strahov Garden II", "Kačer": "Drake", "Kachna": "Duck", "Muchomůrka": "Fly Agaric", "Pod Velkou Deštnou": "Below Velká Deštná", "Na Velký Rozsutec": "On the Way up Veľký Rozsutec", "Ze Starhradu": "From Starhrad", "U Riva del Garda": "Near Riva del Garda", "Nad Cavtatem": "Above Cavtat", "Šumava Javorník": "Šumava, Javorník", "Koně z Adamella": "Horses of Adamello", "U Gornje Igrane": "Near Gornja Igrane", "Pod Dvoračkami": "Below Dvoračky", "Kostelník": "The Sexton", "Pláž u Soči": "Beach on the Soča", "U chaty Prdek": "Near the Prdek Cottage", "Hřib v trávě II": "Bolete in the Grass II", "Hrad, Španělský sál": "Prague Castle, Spanish Hall", "Hrad, Široká chodba": "Prague Castle, The Wide Corridor", "Koniklec II": "Pasqueflower II", "Zelená hora": "Zelená Hora", "Zvonička u Marunov II": "Bell Tower near Marunov II", "Cestou z Jelsy do Bolu": "On the Way from Jelsa to Bol", "Z Vidovy hory": "From Vidova Gora", "Z Postiry": "From Postira", "Berlín": "Berlin", "Denisa a Dufík I": "Denisa and Dufík I", "Denisa a Dufík II": "Denisa and Dufík II", "Pod Zličínem": "Below Zličín", "Nadějná strojvůdkyně": "Promising Train Driver", "Šlechtična": "The Noblewoman", "Od Žlutých lázní": "From Žluté lázně", "Z Korčuly": "From Korčula"};
+const T = { cs: {"hint": "Vyberte kategorii a zobrazí se fotky.", "hintCity": "Vyberte Prahu, Barcelonu nebo Ostatní a zobrazí se fotky.", "enlarge": "Zvětšit snímek: ", "btn": "EN", "btnAria": "Switch to English", "dlg": "Náhled snímku", "brand": "Vít Fikejzl, na začátek stránky"}, en: {"navGal": "Gallery", "navAbout": "About", "sub1": "An Old Photographer with <span>Promise</span>", "sub2": "An Old Photographer with <span style=\"color:var(--sun)\">Promise</span>", "galH": "Gallery", "f_krajina": "Landscape", "f_hory": "Mountains", "f_mesta": "Cities", "f_priroda": "Nature", "f_doprava": "Transport", "f_lide": "People", "f_kostely": "Churches", "f_zeny": "Women", "f_nezarazeno": "Still Life", "sf_praha": "Prague", "sf_barcelona": "Barcelona", "sf_ostatni": "Other", "empty": "There are no photos in this category yet.", "contact": "Contact", "aboutLabel": "About me", "aboutText": "\n          <p>The Latin root of my first name, <i>Vitus</i>, means lively, joyful, and full of life. That may explain why photography has always been, above all, a source of joy for me. Now that I’ve passed sixty, I have decided to describe myself as an old photographer with promise.</p>\n          <p>The world is colourful, so I usually photograph it in colour. Black and white are colours too, which is why I also enjoy black-and-white photography. Every now and then, I venture somewhere in between.</p>\n          <p>I have never been one for sitting on the fence. I’d much rather be up in the mountains. Still, I can photograph perfectly flat landscapes when the occasion demands.</p>\n          <p>I brighten up my daily commute by photographing Prague. My employer makes this easy by being conveniently located in the city centre. From there, I can choose my route according to whim, radiating out in all directions like the points of a star.</p>\n          <p>Once, I won the Other category in an astronomy photography competition, despite the fact that my picture contained not a single star. My photographs of Prague have earned me a few certificates and awards as well. They currently reside in a drawer, where all truly important honours belong.</p>\n          <p>Outside Prague, I enjoy cycling. The riders behind me tend to keep a healthy distance because they know I may hit the brakes without warning the moment something catches my photographic eye.</p>\n          <p>Occasionally, I complement a landscape with a young lady. Summer can be hot, and when the temperature rises, I sometimes find myself with no alternative but to photograph her exactly as nature and the weather intended.</p>\n          <p>My photography alternates between minimalist and maximalist approaches. It seems a pity to own a camera capable of capturing millions of pixels and then not let them fulfil their destiny. So at least a few times each year, I make a determined effort to ensure that the maximum possible number of pixels gets an opportunity to shine in every colour imaginable.</p>\n", "close": "Close", "prev": "Previous", "next": "Next", "hint": "Choose a category to see the photos.", "hintCity": "Choose Prague, Barcelona or Other to see the photos.", "enlarge": "Enlarge photo: ", "btn": "CZ", "btnAria": "Přepnout do češtiny", "dlg": "Photo preview", "brand": "Vít Fikejzl, back to the start"} };
 document.querySelectorAll("[data-i18n]").forEach(el => { const k = el.dataset.i18n; if (!(k in T.cs)) T.cs[k] = el.innerHTML; });
 document.querySelectorAll("[data-i18n-aria]").forEach(el => { const k = el.dataset.i18nAria; if (!(k in T.cs)) T.cs[k] = el.getAttribute("aria-label"); });
 let lang = "cs";
@@ -270,18 +268,21 @@ const PHOTOS = [
   { t: "Sluneční metař", c: "mesta praha", src: "foto/karluv-most-rano.jpg", w: 1067, h: 1600 },
   { t: "Letíme do mlhy", c: "mesta praha", src: "foto/racci-v-mlze.jpg", w: 1200, h: 900 },
   { t: "Náplavka", c: "mesta praha", src: "foto/naplavka-cyklista.jpg", w: 768, h: 1024 },
-  { t: "Z železničního hřbitova", c: "doprava", src: "foto/vagon-leo-express.jpg", w: 1200, h: 900 },
+  { t: "Z železničního hřbitova", c: "doprava", src: "foto/z-zeleznicniho-hrbitova-2.jpg", w: 1600, h: 1067 },
   { t: "Červená", c: "doprava", src: "foto/cervena.jpg", w: 2000, h: 1500 },
   { t: "Skleničky", c: "", src: "foto/sklenice.jpg", w: 1600, h: 1200 },
   { t: "Badalona", c: "krajina", src: "foto/badalona.jpg", w: 1600, h: 1067 },
-  { t: "Táňa", c: "zeny", src: "foto/tana.jpg", w: 1600, h: 900 },
+  { t: "Táňa I", c: "zeny", src: "foto/tana.jpg", w: 1600, h: 900 },
+  { t: "Táňa II", c: "zeny", src: "foto/tana-2.jpg", w: 2000, h: 1227 },
   { t: "Dívka z Boquerie", c: "zeny", src: "foto/boqueria.jpg", w: 1600, h: 1067 },
   { t: "Maják v Sučuraji", c: "krajina", src: "foto/majak-sucuraj.jpg", w: 1600, h: 1063 },
   { t: "Hamburg, Elphi", c: "mesta", src: "foto/elbphilharmonie.jpg", w: 2000, h: 1333 },
   { t: "Hamburg, Elphi II", c: "mesta", src: "foto/hamburg-elphi-2.jpg", w: 2000, h: 1333 },
   { t: "Hamburg, Speicherstadt", c: "mesta", src: "foto/speicherstadt.jpg", w: 2000, h: 1333 },
   { t: "Benátky, z kampanily svatého Marka", c: "mesta", src: "foto/vyhled-z-kampanily.jpg", w: 2000, h: 1333 },
-  { t: "Benátky", c: "mesta", src: "foto/benatky.jpg", w: 2000, h: 1334 },
+  { t: "Benátky I", c: "mesta", src: "foto/benatky.jpg", w: 2000, h: 1334 },
+  { t: "Benátky II", c: "mesta", src: "foto/benatky-2.jpg", w: 1600, h: 1067 },
+  { t: "Stíny nad Seinou", c: "mesta", src: "foto/seina.jpg", w: 2000, h: 1334 },
   { t: "Korčula", c: "mesta", src: "foto/cestou-z-jelsy-do-bolu.jpg", w: 2000, h: 1333 },
   { t: "Milna", c: "mesta", src: "foto/milna.jpg", w: 2000, h: 1333 },
   { t: "Berlín", c: "mesta", src: "foto/berlin.jpg", w: 2000, h: 1333 },
@@ -289,9 +290,9 @@ const PHOTOS = [
   { t: "Jindřichův Hradec, zámek", c: "mesta", src: "foto/jindrichuv-hradec.jpg", w: 2000, h: 1334 },
   { t: "Jindřichův Hradec", c: "mesta", src: "foto/jindrichuv-hradec-mesto.jpg", w: 1600, h: 1067 },
   { t: "Ze Štvanice", c: "mesta praha", src: "foto/ze-stvanice.jpg", w: 1600, h: 1067 },
+  { t: "Stříbrná Vltava", c: "mesta praha", src: "foto/stribrna-vltava.jpg", w: 1067, h: 1600 },
+  { t: "Lampa", c: "", src: "foto/lampa.jpg", w: 2000, h: 1333 },
   { t: "Tulipán", c: "", src: "foto/tulipan.jpg", w: 1600, h: 1200 },
-  { t: "Tulipán II", c: "priroda", src: "foto/tulipan-2.jpg", w: 1600, h: 1200 },
-  { t: "Křivky", c: "", src: "foto/krivky.jpg", w: 2000, h: 1333 },
   { t: "Slamák I", c: "", src: "foto/klobouk-na-vetvi.jpg", w: 2000, h: 1333 },
   { t: "Slamák II", c: "", src: "foto/slamak-2.jpg", w: 2000, h: 1333 },
   { t: "Křeslo pro hosta", c: "", src: "foto/kreslo-pro-hosta.jpg", w: 2000, h: 1333 },
@@ -302,26 +303,33 @@ const PHOTOS = [
   { t: "Dívka s bublifukem", c: "zeny", src: "foto/divka-s-bublifukem.jpg", w: 1600, h: 900 },
   { t: "Pohled z Watles", c: "hory", src: "foto/pohled-z-watles.jpg", w: 2000, h: 1333 },
   { t: "Skaličák 433.001", c: "doprava", src: "foto/433-001.jpg", w: 1600, h: 1067 },
-  { t: "Tramvaj", c: "doprava mesta praha", src: "foto/tramvaj.jpg", w: 1500, h: 2000 },
+  { t: "Tramvaj I", c: "doprava mesta praha", src: "foto/tramvaj-1.jpg", w: 1500, h: 2000 },
+  { t: "Tramvaj II", c: "doprava mesta praha", src: "foto/tramvaj.jpg", w: 1500, h: 2000 },
   { t: "Pod Zličínem", c: "doprava", src: "foto/pod-zlicinem.jpg", w: 2000, h: 1333 },
   { t: "Keep chicks burning", c: "doprava", src: "foto/keep-chicken-burning.jpg", w: 2000, h: 1333 },
   { t: "Šlechtična", c: "doprava", src: "foto/slechticna.jpg", w: 1600, h: 900 },
   { t: "Praha - hlavní nádraží", c: "doprava", src: "foto/praha-hlavni-nadrazi-koleje.jpg", w: 2000, h: 1333 },
   { t: "Čáp", c: "doprava", src: "foto/cap.jpg", w: 2000, h: 1333 },
-  { t: "Vůz vlakové pošty", c: "doprava", src: "foto/vuz-vlakove-posty.jpg", w: 2000, h: 1333 },
+  { t: "Vůz vlakové pošty", c: "doprava", src: "foto/vuz-vlakove-posty-2.jpg", w: 2000, h: 1500 },
+  { t: "Rataje nad Sázavou", c: "doprava", src: "foto/rataje-nad-sazavou.jpg", w: 1600, h: 1067 },
   { t: "V Motolském ordoviku", c: "doprava", src: "foto/motorak-v-zarezu.jpg", w: 2000, h: 1333 },
   { t: "Aeri del Port", c: "doprava mesta barcelona", src: "foto/aeri-del-port.jpg", w: 1600, h: 1067 },
   { t: "Casa Amatller", c: "mesta barcelona", src: "foto/barcelona-secesni-interier.jpg", w: 2000, h: 1333 },
-  { t: "Casa Batlló I", c: "mesta barcelona", src: "foto/casa-batllo-okno.jpg", w: 1600, h: 1200 },
-  { t: "Casa Batlló", c: "mesta barcelona", src: "foto/casa-batllo-strecha.jpg", w: 1600, h: 1067 },
-  { t: "La Pedrera, na střeše", c: "mesta barcelona", src: "foto/la-pedrera-strecha.jpg", w: 1600, h: 1067 },
+  { t: "Casa Batlló I", c: "mesta barcelona", src: "foto/casa-batllo-2.jpg", w: 1333, h: 2000 },
+  { t: "Casa Batlló II", c: "mesta barcelona", src: "foto/casa-batllo-okno.jpg", w: 1600, h: 1200 },
+  { t: "Casa Batlló III", c: "mesta barcelona", src: "foto/casa-batllo-strecha.jpg", w: 1600, h: 1067 },
+  { t: "La Pedrera, na střeše I", c: "mesta barcelona", src: "foto/la-pedrera-strecha.jpg", w: 1600, h: 1067 },
+  { t: "La Pedrera, na střeše II", c: "mesta barcelona", src: "foto/la-pedrera-strecha-2.jpg", w: 1600, h: 1229 },
   { t: "La Pedrera, nádvoří", c: "mesta barcelona", src: "foto/la-pedrera-nadvori.jpg", w: 1600, h: 1067 },
-  { t: "Z Tibidaba", c: "mesta barcelona", src: "foto/z-tibidaba.jpg", w: 2000, h: 1333 },
+  { t: "Z Tibidaba", c: "mesta barcelona", src: "foto/z-tibidaba-2.jpg", w: 2000, h: 1333 },
   { t: "Masopust v Hlubočepích I", c: "lide", src: "foto/masopust-v-hlubocepich.jpg", w: 2000, h: 1334 },
   { t: "Masopust v Hlubočepích II", c: "lide", src: "foto/hlubocepsky-masopust-2.jpg", w: 1600, h: 1067 },
   { t: "Masopust v Hlubočepích III", c: "lide", src: "foto/hlubocepsky-masopust-3.jpg", w: 1600, h: 1067 },
   { t: "Masopust v Hlubočepích IV", c: "lide", src: "foto/hlubocepsky-masopust-4.jpg", w: 2000, h: 1333 },
   { t: "Masopust v Roztokách", c: "lide", src: "foto/masopust-v-roztokach.jpg", w: 2000, h: 1334 },
+  { t: "Ze Zbraslavi", c: "lide", src: "foto/ze-zbraslavi.jpg", w: 1600, h: 900 },
+  { t: "Magičtí ptáčci", c: "lide", src: "foto/magicti-ptacci.jpg", w: 1600, h: 900 },
+  { t: "Krasojezdkyně", c: "lide", src: "foto/krasojezdkyne.jpg", w: 2000, h: 1242 },
   { t: "Ondřej Neff", c: "lide", src: "foto/ondrej-neff.jpg", w: 2000, h: 1334 },
   { t: "Stěhování pošty Praha 120 I", c: "lide", src: "foto/stehovani-posty-1.jpg", w: 2000, h: 1333 },
   { t: "Stěhování pošty Praha 120 II", c: "lide", src: "foto/stehovani-posty-2.jpg", w: 2000, h: 1333 },
@@ -354,10 +362,10 @@ const PHOTOS = [
   { t: "Kostelník", c: "lide", src: "foto/kostelnik.jpg", w: 1067, h: 1600 },
   { t: "Karinka", c: "lide", src: "foto/karinka.jpg", w: 1600, h: 1067 },
   { t: "Trojčata na útěku", c: "lide", src: "foto/trojcata-na-uteku.jpg", w: 2000, h: 1333 },
-  { t: "Zvoníci ve svatém Vítu I", c: "lide", src: "foto/zvonici-1.jpg", w: 2000, h: 1333 },
-  { t: "Zvoníci ve svatém Vítu II", c: "lide", src: "foto/zvonici-2.jpg", w: 2000, h: 1333 },
-  { t: "Zvoníci ve svatém Vítu III", c: "lide", src: "foto/zvonici-3.jpg", w: 2000, h: 1333 },
-  { t: "Zvoníci ve svatém Vítu IV", c: "lide", src: "foto/zvonici-4.jpg", w: 2000, h: 1333 },
+  { t: "Zvoníci ve svatém Vítu I", c: "lide", src: "foto/zvonici-3.jpg", w: 2000, h: 1333 },
+  { t: "Zvoníci ve svatém Vítu II", c: "lide", src: "foto/zvonici-4.jpg", w: 2000, h: 1333 },
+  { t: "Zvoníci ve svatém Vítu III", c: "lide", src: "foto/zvonici-1.jpg", w: 2000, h: 1333 },
+  { t: "Zvoníci ve svatém Vítu IV", c: "lide", src: "foto/zvonici-2.jpg", w: 2000, h: 1333 },
   { t: "Z mníšecké poutě I", c: "", src: "foto/mnisecka-pout.jpg", w: 2000, h: 1333 },
   { t: "Z mníšecké poutě II", c: "", src: "foto/mnisecka-pout-2.jpg", w: 2000, h: 1334 },
   { t: "Lucie", c: "zeny", src: "foto/lucie.jpg", w: 1600, h: 1200 },
@@ -377,6 +385,8 @@ const PHOTOS = [
   { t: "Zu II", c: "zeny", src: "foto/zu-2.jpg", w: 1600, h: 1000 },
   { t: "Nikola I", c: "zeny", src: "foto/nikola-1.jpg", w: 1600, h: 1067 },
   { t: "Nikola II", c: "zeny", src: "foto/nikola-2.jpg", w: 2000, h: 1500 },
+  { t: "Hanka", c: "zeny", src: "foto/hanka.jpg", w: 1600, h: 1600 },
+  { t: "Neznámá", c: "zeny", src: "foto/neznama-2.jpg", w: 1600, h: 1067 },
   { t: "Sukně", c: "zeny", src: "foto/sukne.jpg", w: 1600, h: 1600 },
   { t: "Kristýna V.", c: "zeny", src: "foto/kristyna.jpg", w: 2000, h: 1334 },
   { t: "Terezia I", c: "zeny", src: "foto/terezia-0.jpg", w: 1500, h: 2000 },
@@ -420,11 +430,18 @@ const PHOTOS = [
   { t: "Johemian VII", c: "zeny", src: "foto/z-cerneho-lomu.jpg", w: 2000, h: 1500 },
   { t: "Johemian VIII", c: "zeny", src: "foto/na-dalejskem-potoce.jpg", w: 2000, h: 1333 },
   { t: "Johemian IX", c: "zeny", src: "foto/hra.jpg", w: 2000, h: 1500 },
+  { t: "Johemian X", c: "zeny", src: "foto/johemian-14.jpg", w: 2000, h: 1333 },
+  { t: "Johemian XI", c: "zeny", src: "foto/johemian-x.jpg", w: 2000, h: 1333 },
+  { t: "Johemian XII", c: "zeny", src: "foto/johemian-xi.jpg", w: 2000, h: 1333 },
+  { t: "Johemian XIII", c: "zeny", src: "foto/johemian-11b.jpg", w: 1333, h: 2000 },
+  { t: "Johemian XIV", c: "zeny", src: "foto/johemian-12.jpg", w: 2000, h: 1333 },
   { t: "Viktória I", c: "zeny", src: "foto/viktoria.jpg", w: 2000, h: 1333 },
   { t: "Viktória II", c: "zeny", src: "foto/viktoria-ii-nova.jpg", w: 1333, h: 2000 },
   { t: "Viktória III", c: "zeny", src: "foto/viktoria-2.jpg", w: 2000, h: 1125 },
   { t: "Viktória IV", c: "zeny", src: "foto/viktoria-3.jpg", w: 2000, h: 1333 },
   { t: "Viktória V", c: "zeny", src: "foto/viktoria-4.jpg", w: 1331, h: 2000 },
+  { t: "Vikencia", c: "zeny", src: "foto/vikencia.jpg", w: 1334, h: 2000 },
+  { t: "Kamila", c: "zeny", src: "foto/neznama.jpg", w: 2000, h: 1333 },
   { t: "Od Kežmaroku", c: "hory", src: "foto/od-kezmaroku.jpg", w: 2000, h: 1333 },
   { t: "Tcheyeck", c: "hory", src: "foto/tcheyeck.jpg", w: 2000, h: 1333 },
   { t: "Sasslong", c: "hory", src: "foto/sasslong.jpg", w: 2000, h: 1333 },
@@ -432,13 +449,20 @@ const PHOTOS = [
   { t: "Marmolada", c: "hory", src: "foto/marmolada.jpg", w: 2000, h: 1231 },
   { t: "Seceda", c: "hory", src: "foto/seceda.jpg", w: 2000, h: 1333 },
   { t: "Kamenožrout", c: "hory", src: "foto/kamenozrout.jpg", w: 2000, h: 1333 },
+  { t: "Kráska", c: "priroda", src: "foto/kraska.jpg", w: 2000, h: 1333 },
+  { t: "Hřib", c: "priroda", src: "foto/hrib.jpg", w: 2000, h: 1500 },
   { t: "Panský hříbek", c: "priroda", src: "foto/hrib-v-mechu.jpg", w: 2000, h: 1333 },
-  { t: "Hřib v trávě I", c: "priroda", src: "foto/hrib-v-trave.jpg", w: 2000, h: 1333 },
-  { t: "Hřib v trávě II", c: "priroda", src: "foto/hrib-v-mechu-2.jpg", w: 2000, h: 1500 },
+  { t: "Hřib v trávě", c: "priroda", src: "foto/hrib-v-trave.jpg", w: 2000, h: 1333 },
+  { t: "Muchomůrka", c: "priroda", src: "foto/muchomurka.jpg", w: 2000, h: 1500 },
+  { t: "Kozák", c: "priroda", src: "foto/kozak.jpg", w: 960, h: 720 },
+  { t: "V bodláčí", c: "priroda", src: "foto/v-pampelisce.jpg", w: 2000, h: 1333 },
+  { t: "Nevěsta a ženich", c: "priroda", src: "foto/nevesta-a-zenich.jpg", w: 2000, h: 1333 },
+  { t: "Tulipán", c: "priroda", src: "foto/tulipan-2.jpg", w: 1600, h: 1200 },
   { t: "Okolo Třeboně", c: "priroda", src: "foto/lavicka-v-parku.jpg", w: 2000, h: 1333 },
   { t: "Castelldefels", c: "krajina", src: "foto/vlny-a-mraky.jpg", w: 2000, h: 1333 },
   { t: "Blatná, zámek", c: "mesta", src: "foto/zamek-nad-rybnikem.jpg", w: 2000, h: 1333 },
   { t: "Z Bašky", c: "mesta", src: "foto/z-basky.jpg", w: 2000, h: 1333 },
+  { t: "Novi Vinodolski", c: "krajina", src: "foto/novi-vinodolski.jpg", w: 1600, h: 1067 },
   { t: "Šumava, Roklanský potok", c: "hory", src: "foto/cesta-podel-reky.jpg", w: 2000, h: 1333 },
   { t: "Zelená řeka", c: "priroda", src: "foto/zelena-reka.jpg", w: 2000, h: 1333 },
   { t: "U Řeporyjí", c: "krajina mesta praha", src: "foto/zapad-slunce-v-borovicich.jpg", w: 2000, h: 1333 },
@@ -451,17 +475,20 @@ const PHOTOS = [
   { t: "Hrad, Španělský sál", c: "mesta praha", src: "foto/spanelsky-sal.jpg", w: 2000, h: 1333 },
   { t: "Hrad, Široká chodba", c: "mesta praha", src: "foto/siroka-chodba.jpg", w: 2000, h: 1333 },
   { t: "Dvorecký most", c: "mesta praha", src: "foto/dvorecky-most.jpg", w: 2000, h: 1333 },
+  { t: "Loďky", c: "doprava", src: "foto/lodky.jpg", w: 1600, h: 800 },
   { t: "U Svaté Anny", c: "krajina", src: "foto/jinovatka-a-mlha.jpg", w: 2000, h: 1333 },
   { t: "Nad Sezimovým Ústím", c: "priroda", src: "foto/dub-s-jinovatkou.jpg", w: 2000, h: 1333 },
   { t: "Vlčí máky", c: "priroda", src: "foto/vlci-maky.jpg", w: 1600, h: 1067 },
-  { t: "Nevěsta a ženich", c: "priroda", src: "foto/nevesta-a-zenich.jpg", w: 2000, h: 1333 },
-  { t: "Muchomůrka", c: "priroda", src: "foto/muchomurka.jpg", w: 2000, h: 1500 },
   { t: "U Hájů", c: "priroda", src: "foto/u-haju.jpg", w: 2000, h: 1333 },
   { t: "Co je tam dole", c: "priroda", src: "foto/co-je-tam-dole-2.jpg", w: 1333, h: 2000 },
   { t: "Na Hamerském potoce", c: "krajina", src: "foto/na-hamerskem-potoce.jpg", w: 2000, h: 1333 },
   { t: "Přišlo jaro", c: "priroda", src: "foto/prislo-jaro.jpg", w: 2000, h: 1500 },
-  { t: "Kachna I", c: "priroda", src: "foto/kachna.jpg", w: 2000, h: 1333 },
-  { t: "Kachna II", c: "priroda", src: "foto/kachna-2.jpg", w: 2000, h: 1333 },
+  { t: "Kačer", c: "priroda", src: "foto/kachna.jpg", w: 2000, h: 1333 },
+  { t: "Kachna", c: "priroda", src: "foto/kachna-2.jpg", w: 2000, h: 1333 },
+  { t: "Jehličí", c: "priroda", src: "foto/jehlici.jpg", w: 2000, h: 1500 },
+  { t: "Sid I", c: "priroda", src: "foto/sid.jpg", w: 2000, h: 1333 },
+  { t: "Sid II", c: "priroda", src: "foto/sid-2.jpg", w: 1600, h: 1067 },
+  { t: "Surikaty", c: "priroda", src: "foto/surikaty.jpg", w: 1600, h: 1197 },
   { t: "Podzim v Mníšku pod Brdy I", c: "priroda", src: "foto/podzim-mnisek-1.jpg", w: 1200, h: 800 },
   { t: "Podzim v Mníšku pod Brdy II", c: "priroda", src: "foto/podzim-mnisek-2.jpg", w: 1200, h: 800 },
   { t: "Koniklec", c: "priroda", src: "foto/koniklec.jpg", w: 2000, h: 1333 },
@@ -471,7 +498,14 @@ const PHOTOS = [
   { t: "Obilí", c: "priroda", src: "foto/jecmenne-pole.jpg", w: 1200, h: 1600 },
   { t: "Chorvatsko, Cavtat", c: "krajina", src: "foto/zapad-slunce-nad-morem.jpg", w: 2000, h: 1333 },
   { t: "Soukeník", c: "krajina", src: "foto/soukenik.jpg", w: 2000, h: 1334 },
-  { t: "Pláž v Malii", c: "krajina", src: "foto/plaz-v-malii.jpg", w: 2000, h: 1500 },
+  { t: "Z Malie I", c: "krajina", src: "foto/z-malie-2.jpg", w: 2000, h: 1333 },
+  { t: "Z Malie II", c: "krajina", src: "foto/z-malie-3.jpg", w: 1600, h: 900 },
+  { t: "Vlny", c: "krajina", src: "foto/vlny.jpg", w: 2000, h: 1333 },
+  { t: "U Roškopova", c: "krajina", src: "foto/u-roskopova.jpg", w: 1600, h: 1067 },
+  { t: "Před výlovem", c: "", src: "foto/pred-vylovem.jpg", w: 1600, h: 1200 },
+  { t: "Rožmberk", c: "krajina", src: "foto/rozmberk.jpg", w: 1600, h: 1200 },
+  { t: "U Brzkova", c: "krajina", src: "foto/u-brzkova.jpg", w: 2000, h: 1333 },
+  { t: "Zelená a modrá", c: "krajina", src: "foto/zelena-a-modra.jpg", w: 2000, h: 1333 },
   { t: "Prvić I", c: "krajina", src: "foto/prvic.jpg", w: 2000, h: 1333 },
   { t: "Prvić II", c: "krajina", src: "foto/pohled-na-prvic.jpg", w: 1600, h: 1067 },
   { t: "Lávka v Roudné", c: "krajina", src: "foto/lavka-v-roudne.jpg", w: 2000, h: 1333 },
@@ -510,7 +544,11 @@ const PHOTOS = [
   { t: "Zelená hora", c: "kostely", src: "foto/zelena-hora.jpg", w: 2000, h: 1333 },
   { t: "Břevnovský klášter, Vojtěška", c: "kostely", src: "foto/zimni-podvecer.jpg", w: 2000, h: 1333 },
   { t: "Krteň", c: "kostely", src: "foto/vez-za-jinovatkou.jpg", w: 1333, h: 2000 },
-  { t: "Sagrada Familia", c: "kostely", src: "foto/sagrada-familia.jpg", w: 1600, h: 1067 },
+  { t: "Sagrada Familia I", c: "kostely", src: "foto/sagrada-familia.jpg", w: 1600, h: 1067 },
+  { t: "Sagrada Familia II", c: "kostely", src: "foto/sagrada-familia-2.jpg", w: 1600, h: 1067 },
+  { t: "Montserrat I", c: "kostely", src: "foto/montserrat.jpg", w: 1600, h: 900 },
+  { t: "Montserrat II", c: "kostely", src: "foto/montserrat-2.jpg", w: 2000, h: 1491 },
+  { t: "Skalka", c: "kostely", src: "foto/skalka.jpg", w: 1600, h: 900 },
   { t: "Barcelona, Santa Maria del Mar", c: "kostely mesta barcelona", src: "foto/santa-maria-del-mar.jpg", w: 1600, h: 1067 },
   { t: "Zvonička u Marunov", c: "kostely", src: "foto/zvonicka-u-marunov-2.jpg", w: 2000, h: 1333 },
   { t: "Pohled z Cime de Caron", c: "hory", src: "foto/hory-02.jpg", w: 2000, h: 1333 },
@@ -534,6 +572,7 @@ const PHOTOS = [
   { t: "U Gornje Igrane", c: "hory", src: "foto/u-gornje-igrane.jpg", w: 2000, h: 1333 },
   { t: "Maly Staw", c: "hory", src: "foto/maly-staw.jpg", w: 2000, h: 1333 },
   { t: "Planina Nida", c: "hory", src: "foto/planina-nida.jpg", w: 2000, h: 1333 },
+  { t: "Travnik", c: "hory", src: "foto/travnik.jpg", w: 2000, h: 1125 },
   { t: "Na Velký Rozsutec", c: "hory", src: "foto/na-velky-rozsutec.jpg", w: 1500, h: 2000 },
   { t: "Ze Starhradu", c: "hory", src: "foto/ze-starhradu.jpg", w: 2000, h: 1500 },
   { t: "U Riva del Garda", c: "hory", src: "foto/u-riva-del-garda.jpg", w: 1334, h: 2000 },
@@ -704,5 +743,4 @@ try {
 } catch (e) {}
 </script>
 
-</body>
-</html>
+</body></html>
